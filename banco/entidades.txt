@@ -1,0 +1,52 @@
+Entidades
+
+Nome na tabela com letras minúsculas e no plural.
+
+usuarios {
+ cd_usuario - codigo - int
+ ds_usuario - nome - varchar
+ ds_cpf - cpf - varchar
+ ds_email - email - varchar
+ ds_celular - celular - varchar
+ ds_endereco - endereco - varchar
+ ds_senha - senha - varchar
+ ds_nacsimento - nascimento - varchar
+ ds_situacao 
+}
+
+produtos {
+ cd_produto - codigo - 
+ ds_produto - descrição
+ cd_categoria - categoria - FK da tabela categorias
+ qt_estoque - quantidades
+ vl_compra - preço custo
+ vl_venda - preço venda
+ ds_unidade - UND saída
+ ds_situacao  
+}
+
+servicos {
+ cd_servico - codigo
+ ds_servico - descrição
+ vl_hora - valor da hora
+ vl_minimo - valor minímo 
+ tp_tipo - tipo do serviço
+}
+
+categorias {
+ cd_categoria
+ ds_categoria
+}
+
+veiculos {
+ cd_veiculo - codigo
+ ds_placa - placa veículo
+ ds_tipo - tipo
+ ds_cor - cor
+ ds_situacao - ativou ou não, algo nesse sentido
+}
+
+compras
+receber
+pagar
+caixa

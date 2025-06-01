@@ -1,0 +1,16 @@
+{
+    "name": "joao/projeto-dev-web",
+    "description": "Projeto de desenvolvimento web",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/" 
+        }
+    },
+    "authors": [
+        {
+            "name": "joao"
+        }
+    ],
+    "require": {}
+}
