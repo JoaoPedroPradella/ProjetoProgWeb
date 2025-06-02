@@ -37,8 +37,8 @@ class Usuario {
             session_start();
             session_regenerate_id(true);
 
-            $_SESSION['id'] = $dados['id'];
-            $_SESSION['nome'] = $dados['nome'];
+            $_SESSION['id'] = $dados['cd_usuario'];
+            $_SESSION['nome'] = $dados['ds_usuario'];
 
             header('LOCATION: ../../sistema.php');
             exit();
