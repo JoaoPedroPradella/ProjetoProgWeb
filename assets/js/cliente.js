@@ -1,4 +1,4 @@
-const modal = document.querySelector("dialog#modal")
+//const modal = document.querySelector("dialog#modal")
 
 function listarClientes() {
     let tipo = 'listagem';
@@ -25,5 +25,13 @@ function listarClientes() {
         }
     });
 }
+
+$("#carregarCliente").click(function(){
+    $("#conteudo").load("cad_cliente.php");
+})
+
+
+
+
 // Carrega a listagem de clientes pela primeira vez
 listarClientes();
