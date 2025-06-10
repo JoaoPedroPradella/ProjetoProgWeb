@@ -34,8 +34,10 @@ session_start();
                         Cadastros
                     </button>
                     <div class="collapse" id="home-collapse">
-                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="cad_cliente.php"
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small" id="page_num">
+                            <li>
+                                <button  id="carregarCliente">Clientes</button>
+                                <a href="#"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Clientes</a>
                             </li>
                             <li><a href="cad_produto.php"
@@ -106,10 +108,13 @@ session_start();
             </ul>
             
         </div>
-        <!-- <h1>Bem Vindo <?php echo ($_SESSION['nome'])?></h1> -->
+        <div id="conteudo">
+            <!-- Vai chamar o conteúdo do cadastro do cliente (Ajax) -->
+        </div>
     </main>
     <script src="vendor\js\jquery.js"></script>
     <script src="assets\js\usuario.js"></script>
+    <script src="assets\js\cliente.js"></script>
 </body>
 
 </html>
