@@ -1,17 +1,14 @@
-<?php include 'sistema.php'; ?>
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport">
     <title>List groups · Bootstrap v5.3</title>
     <link rel="stylesheet" href="assets\css\cliente.css">
 </head>
 
 <body>
-    <main class="content">
-        <p>teste</p>        
+    <main>
         <table>
             <thead>
                 <tr>
@@ -21,14 +18,12 @@
             </thead>
             <tbody id="lista">
                 <tr>
-                    <td>teste</td>
                 </tr>
                 <!-- Linhas serão adicionadas dinamicamente aqui -->
             </tbody>
         </table>
 
         <dialog id="modal">
-            <!--  -->
             <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
                 <div>
                     <div>
