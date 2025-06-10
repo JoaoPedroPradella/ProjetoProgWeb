@@ -1,18 +1,12 @@
 <?php
-
 declare(strict_types=1);
-
-
 use App\Models\Usuario;
-
 session_set_cookie_params(['httponly' => true]);
-
 session_start();
-
 ?>
 
 <!DOCTYPE html>
-<html lang="pt-br" data-bs-theme="auto">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -39,12 +33,12 @@ session_start();
                         data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                         Cadastros
                     </button>
-                    <div class="collapse show" id="home-collapse">
+                    <div class="collapse" id="home-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="cad-cliente.php"
+                            <li><a href="cad_cliente.php"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Clientes</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="cad_produto.php"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Produtos</a>
                             </li>
                             <li><a href="#"
@@ -105,7 +99,7 @@ session_start();
                 <li class="border-top my-3"></li>
                 <li class="mb-1"> <button
                         class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-                        data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false" onclick="">
+                        data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false" onclick="logout()">
                         Sair
                     </button>
                 </li>
@@ -114,7 +108,8 @@ session_start();
         </div>
         <!-- <h1>Bem Vindo <?php echo ($_SESSION['nome'])?></h1> -->
     </main>
-   
+    <script src="vendor\js\jquery.js"></script>
+    <script src="assets\js\usuario.js"></script>
 </body>
 
 </html>
