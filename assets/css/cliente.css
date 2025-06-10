@@ -1,13 +1,5 @@
-* {
-    box-sizing: border-box;
-  }
 
-  body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    display: flex;
-  }
-  
+
 .bd-placeholder-img {
     font-size: 1.125rem;
     text-anchor: middle;
@@ -85,12 +77,9 @@
     height: 1em
 }
 
-.bd-mode-toggle .dropdown-menu .active .bi {
-    display: block !important
-}
 
 .content {
-    flex-grow: 1;
-    padding: 20px;
+    padding: 900px;
     background-color: #fff;
+    margin-right: 100px;
 }
