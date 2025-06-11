@@ -1,4 +1,4 @@
-//const modal = document.querySelector("dialog#modal")
+const modal = document.querySelector("dialog#modal")
 
 function listarClientes() {
     let tipo = 'listagem';
@@ -26,12 +26,38 @@ function listarClientes() {
     });
 }
 
-$("#carregarCliente").click(function(){
-    $("#conteudo").load("cad_cliente.php");
+
+$("#btn_novo").click(function(){
+    console.log('teste');
+    modal.showModal();
+    $('#status').hide();
 })
 
+$('#btn_fechar').click(function(){
+    modal.close();
+})
 
-
+$('#form').submit(function(){
+    console.log('teste');
+    e.preventDefault();
+    $.ajax({
+        url: 'src/Application/inserir_cliente.php',
+        method: 'POST',
+        data: {
+            'codigo': $('#txtid').val(),
+            'nome': $('#txtnome').val(),
+            'cpf_cnpj': $('#txtcpf_cnpj').val(),
+            'telefone': $('#txttel').val(),
+            'cep': $('#txtcep').val(),
+            'uf': $('#txtuf').val(),
+            'munic': $('#txtmunic').val(),
+            'lograd': $('#txtlog').val(),
+        },
+        dataType: 'json'
+    }).done(function (result){
+        alert('teste');
+    });
+});
 
 // Carrega a listagem de clientes pela primeira vez
 listarClientes();
