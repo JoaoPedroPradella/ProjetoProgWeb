@@ -112,7 +112,7 @@ session_start();
     </main>
     <script src="vendor\js\jquery.js"></script>
     <script src="assets\js\usuario.js"></script>
-    <script src="assets\js\cliente.js"></script>
+    <script src="assets\js\menu.js"></script>
 </body>
 
 </html>
