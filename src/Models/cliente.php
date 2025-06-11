@@ -51,7 +51,7 @@ class Cliente
     public function listarClientes(string $id, string $tipo): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_cliente, ds_nome FROM clientes';
+            $sql = 'SELECT cd_cliente, ds_nome FROM clientes ORDER BY cd_cliente DESC';
             $dados = $this->bd->selecionarRegistros($sql);
             return ($dados);
             exit();
