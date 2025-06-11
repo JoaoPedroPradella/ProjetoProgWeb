@@ -5,24 +5,32 @@
     <meta charset="utf-8">
     <meta name="viewport">
     <title>List groups · Bootstrap v5.3</title>
-    <link rel="stylesheet" href="assets\css\cliente.css">
+    <link rel="stylesheet" href="assets\css\menu.css">
 </head>
 
 <body>
-    <main>
+    <main id="main_cliente">
         <table>
-            <thead>
-                <tr>
-                    <th id="codigo">Código</th>
-                    <th id="nome">Nome</th>
-                </tr>
-            </thead>
             <tbody id="lista">
                 <tr>
                 </tr>
                 <!-- Linhas serão adicionadas dinamicamente aqui -->
             </tbody>
         </table>
+        <div class="container">
+            <footer class="py-3 my-4">
+                <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                </ul>
+                <ul class="nav justify-content-center">
+                    <li class="nav-item"><button id="btn_novo">NOVO</button></li>
+                </ul>
+            </footer>
+        </div>
 
         <dialog id="modal">
             <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
@@ -30,29 +38,36 @@
                     <div>
                         <div class="modal-header p-5 pb-4 border-bottom-0">
                             <h1 class="fw-bold mb-0 fs-2" id="txttitulo"></h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="fechar" onclick="fecharModal()"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="fechar" onclick="fecharModal()"></button>
                         </div>
 
                         <div class="modal-body p-5 pt-0">
                             <form class="" id="form">
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txtid" name="txtid" value="NOVO" style="background-color: rgba(128, 128, 128, 0.103); font: bolder;" readonly class="form-control rounded-3">
+                                    <input type="text" id="txtid" name="txtid" value="NOVO"
+                                        style="background-color: rgba(128, 128, 128, 0.103); font: bolder;" readonly
+                                        class="form-control rounded-3">
                                     <label for="floatingInput">Codigo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txtnome" name="txtnome" required class="form-control rounded-3">
+                                    <input type="text" id="txtnome" name="txtnome" required
+                                        class="form-control rounded-3">
                                     <label for="floatingPassword">Nome</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" id="txtcpf" name="txtcpf" required class="form-control rounded-3">
+                                    <input type="number" id="txtcpf" name="txtcpf" required
+                                        class="form-control rounded-3">
                                     <label for="floatingPassword">CPF</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input input type="number" id="txttel" name="txttel" required class="form-control rounded-3">
+                                    <input input type="number" id="txttel" name="txttel" required
+                                        class="form-control rounded-3">
                                     <label for="floatingPassword">Telefone</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" id="txtcep" name="txtcep" required class="form-control rounded-3">
+                                    <input type="number" id="txtcep" name="txtcep" required
+                                        class="form-control rounded-3">
                                     <label for="floatingPassword">CEP</label>
                                 </div>
                                 <div class="form-floating mb-3">
@@ -60,10 +75,12 @@
                                     <label for="floatingPassword">UF</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txtmunic" name="txtmunic" required class="form-control rounded-3">
+                                    <input type="text" id="txtmunic" name="txtmunic" required
+                                        class="form-control rounded-3">
                                     <label for="floatingPassword">Munícipio</label>
                                 </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="concluir">Cadastrar</button>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
+                                    id="concluir">Cadastrar</button>
                             </form>
                         </div>
                     </div>
