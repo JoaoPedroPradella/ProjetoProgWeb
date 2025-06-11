@@ -6,7 +6,6 @@ function logout () {
             dataType: 'json'
         }).done(function(result){
             if (result.status === 'sucesso'){
-                console.log('teste');
                 window.location.href = 'index.php';
             } else {
                 alert('Erro ao sair. Tente novamente.');
