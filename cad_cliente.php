@@ -20,14 +20,12 @@
         <div class="container">
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Editar</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Detalhes</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Excluir</a></li>
                 </ul>
                 <ul class="nav justify-content-center">
-                    <li class="nav-item"><button id="btn_novo">NOVO</button></li>
+                    <li class="nav-item"><button id="btn_novo" id="btn_novo">NOVO</button></li>
                 </ul>
             </footer>
         </div>
@@ -39,7 +37,7 @@
                         <div class="modal-header p-5 pb-4 border-bottom-0">
                             <h1 class="fw-bold mb-0 fs-2" id="txttitulo"></h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                                id="fechar" onclick="fecharModal()"></button>
+                                id="btn_fechar"></button>
                         </div>
 
                         <div class="modal-body p-5 pt-0">
@@ -56,13 +54,12 @@
                                     <label for="floatingPassword">Nome</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" id="txtcpf" name="txtcpf" required
+                                    <input type="number" id="txtcpf_cnpj" name="txtcpf_cnpj" required
                                         class="form-control rounded-3">
-                                    <label for="floatingPassword">CPF</label>
+                                    <label for="floatingPassword">CNPJ/CPF</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input input type="number" id="txttel" name="txttel" required
-                                        class="form-control rounded-3">
+                                    <input input type="number" id="txttel" name="txttel" required class="form-control rounded-3">
                                     <label for="floatingPassword">Telefone</label>
                                 </div>
                                 <div class="form-floating mb-3">
@@ -78,6 +75,17 @@
                                     <input type="text" id="txtmunic" name="txtmunic" required
                                         class="form-control rounded-3">
                                     <label for="floatingPassword">Munícipio</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input input type="text" id="txtlog" name="txtlog" required
+                                        class="form-control rounded-3">
+                                    <label for="floatingPassword">Logradouro</label>
+                                </div>
+                                <div class="form-floating mb-3" id="status">
+                                    <div>
+                                        <input type="checkbox" id="txttel" name="txttel">
+                                        <label for="txttel">Ativo</label>
+                                    </div>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
                                     id="concluir">Cadastrar</button>
