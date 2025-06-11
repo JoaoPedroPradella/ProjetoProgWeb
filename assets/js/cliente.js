@@ -18,7 +18,7 @@ function listarClientes() {
 
             for (var i = 0; i < result.length; i++) {
                 $('#lista').prepend(
-                    '<tr><td>' + result[i].cd_cliente + '</td><td>' + result[i].ds_nome + '</td></tr>');
+                    '<div class="list-group"> <label class="list-group-item d-flex gap-2"> <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios" id="listGroupRadios1" value="" checked> <span>' + result[i].ds_nome + ' <small class="d-block text-body-secondary">' + result[i].cd_cliente + '</small></span> </label></div>');
             }
         } else {
             alert(result.erro);
