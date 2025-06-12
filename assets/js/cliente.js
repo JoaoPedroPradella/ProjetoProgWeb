@@ -37,8 +37,7 @@ $('#btn_fechar').click(function(){
     modal.close();
 })
 
-$('#form').submit(function(){
-    console.log('teste');
+$('#form').submit(function (e){
     e.preventDefault();
     $.ajax({
         url: 'src/Application/inserir_cliente.php',
@@ -55,7 +54,7 @@ $('#form').submit(function(){
         },
         dataType: 'json'
     }).done(function (result){
-        alert('teste');
+       console.log(result);
     });
 });
 
