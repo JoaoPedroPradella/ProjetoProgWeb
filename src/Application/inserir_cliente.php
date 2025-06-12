@@ -7,4 +7,4 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use App\Models\Cliente;
 
 
-echo json_encode(['status' => 'sucesso']);
+echo json_encode(var_dump($_POST));
