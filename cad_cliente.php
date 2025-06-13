@@ -20,8 +20,8 @@
         <div class="container">
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary" id="btn_edit">Editar</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Detalhes</a></li>
+                    <li class="nav-item"><button onclick = "alterarCadastro()" class="nav-link px-2 text-body-secondary" id="btn_editar" name="btn_editar">Editar</button></li>
+                    <li class="nav-item"><button onclick = "alterarCadastro()" class="nav-link px-2 text-body-secondary" id="btn_detalhes" name="btn_detalhes">Detalhes</button></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Excluir</a></li>
                 </ul>
                 <ul class="nav justify-content-center">
@@ -83,12 +83,12 @@
                                 </div>
                                 <div class="form-floating mb-3" id="status">
                                     <div>
-                                        <input type="checkbox" id="txttel" name="txttel" checked>
-                                        <label for="txttel">Ativo</label>
+                                        <input type="checkbox" id="chk_status" name="chk_status" checked>
+                                        <label for="chk_status">Ativo</label>
                                     </div>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
-                                    id="concluir">Cadastrar</button>
+                                    id="btn_concluir" name="btn_concluir">Cadastrar</button>
                             </form>
                         </div>
                     </div>
