@@ -34,7 +34,7 @@ class Cliente
             $msg = 'Cliente cadastrado com sucesso!';
         } else {
             $sql = 'UPDATE clientes SET ds_nome = ?, ds_cpf_cnpj = ?, ds_tel = ?, ds_cep = ?, ds_uf = ?, ds_municipio = ?, ds_logradouro = ?, tp_tipo = ? 
-            WHERE id = ?;';
+            WHERE cd_cliente = ?;';
             $params = [
                 $form['nome'],
                 $form['cpf_cnpj'],
@@ -60,7 +60,7 @@ class Cliente
             return ($dados);
             exit();
         }
-        $sql = 'SELECT cd_cliente, ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo FROM clientes WHERE id = ?';
+        $sql = 'SELECT cd_cliente, ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo FROM clientes WHERE cd_cliente = ?';
         $params = [$id];
         $dados = $this->bd->selecionarRegistro($sql, $params);
 
