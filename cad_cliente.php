@@ -20,7 +20,7 @@
         <div class="container">
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Editar</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary" id="btn_edit">Editar</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Detalhes</a></li>
                     <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Excluir</a></li>
                 </ul>
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="form-floating mb-3" id="status">
                                     <div>
-                                        <input type="checkbox" id="txttel" name="txttel">
+                                        <input type="checkbox" id="txttel" name="txttel" checked>
                                         <label for="txttel">Ativo</label>
                                     </div>
                                 </div>
