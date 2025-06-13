@@ -49,8 +49,8 @@ create table veiculos (
 create table clientes (
 	cd_cliente int not null auto_increment primary key, 
     ds_nome varchar(255) not null,
-    ds_cpf varchar (11),
-    ds_cnpj varchar (14),
+    ds_cpf_cnpj varchar (14),
+    ds_tel varchar(20),
     ds_cep varchar (8) not null,
     ds_uf varchar (2) not null,
     ds_municipio varchar (200) not null,
@@ -279,4 +279,16 @@ foreign key (cd_pagamento)
 references pagamentos (cd_pag);
 
 -- Inserts --
-insert into usuarios values ()
+insert into usuarios (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao ) values ('adm', '43243243', 'adm@email.com.br', '432432423', 'teste', '1', '28022003', '1')
+
+update usuarios set ds_email = 'adm@email.com.br'
+where cd_usuario = '1'
+
+select * from clientes
+select * from usuarios
+
+
+insert into clientes (ds_nome, ds_cpf, ds_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898','', '4324323','488849','SC','teste','teste','1');
+insert into clientes (ds_nome, ds_cpf, ds_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898','', '4324323','488849','SC','teste','teste','1')
+
+drop database infojp
