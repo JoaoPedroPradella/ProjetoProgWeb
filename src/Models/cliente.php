@@ -16,31 +16,35 @@ class Cliente
         $this->bd = $bd;
     }
 
-    public function cadastrar(string $id, array $form): string
+    public function cadastrar(array $form): string
     {
-        if ($id == 'NOVO') {
-            $sql = 'INSERT INTO cliente (nome, cpf, telefone, uf, municipio, cep) VALUES
-            (?, ?, ?, ?, ?, ?)';
+        if ($form['id'] == 'NOVO') {
+            $sql = 'INSERT INTO clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) VALUES
+            (?, ?, ?, ?, ?, ?, ?, ?)';
             $params = [
                 $form['nome'],
-                $form['cpf'],
-                $form['tel'],
+                $form['cpf_cnpj'],
+                $form['telefone'],
+                $form['cep'],
                 $form['uf'],
                 $form['munic'],
-                $form['cep']
+                $form['lograd'],
+                '1'
             ];
             $msg = 'Cliente cadastrado com sucesso!';
         } else {
-            $sql = 'UPDATE cliente SET nome=?, cpf=?, telefone=?, uf=?, municipio=?, cep=?  
+            $sql = 'UPDATE clientes SET ds_nome = ?, ds_cpf_cnpj = ?, ds_tel = ?, ds_cep = ?, ds_uf = ?, ds_municipio = ?, ds_logradouro = ?, tp_tipo = ? 
             WHERE id = ?;';
             $params = [
                 $form['nome'],
-                $form['cpf'],
-                $form['tel'],
+                $form['cpf_cnpj'],
+                $form['telefone'],
+                $form['cep'],
                 $form['uf'],
                 $form['munic'],
-                $form['cep'],
-                $id,
+                $form['lograd'],
+                '1',
+                $form['id']
             ];
             $msg = 'Cliente alterado com sucesso!';
         }
@@ -56,7 +60,7 @@ class Cliente
             return ($dados);
             exit();
         }
-        $sql = 'SELECT cd_cliente, ds_nome, ds_cpf, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo FROM clientes WHERE id = ?';
+        $sql = 'SELECT cd_cliente, ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo FROM clientes WHERE id = ?';
         $params = [$id];
         $dados = $this->bd->selecionarRegistro($sql, $params);
 
