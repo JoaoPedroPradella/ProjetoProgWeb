@@ -34,9 +34,18 @@ $("#btn_novo").click(function(){
     $('#status').hide();
 })
 
-$("#btn_edit").click(function alterarCadastro (){
+function alterarCadastro (){
     modal.showModal();
-    $('#txttitulo').html('Editando');
+    if ($('#btn_editar').click) {
+        console.log('Editar');
+        $('#txttitulo').html('Editando');
+        $('#btn_concluir').show();
+    } else {
+        console.log('Detalhes');
+        $('#txttitulo').html('Detalhes');
+        $('#btn_concluir').hide();
+    }
+    
     $('#status').show();
     $status = $('#checkbox:checked').val();
     console.log($status);
@@ -51,22 +60,30 @@ $("#btn_edit").click(function alterarCadastro (){
     }).done(function (result){
         if (!result.erro){
             $('#txtid').val(result['cd_cliente']);
-            $('#txtnome').val(result['ds_nome'])
-            $('#txtcpf_cnpj').val(result['ds_cpf_cnpj'])
-            $('#txttel').val(result['ds_tel'])
-            $('#txtcep').val(result['ds_cep'])
-            $('#txtuf').val(result['ds_uf'])
-            $('#txtmunic').val(result['ds_municipio'])
-            $('#txtlog').val(result['ds_logradouro'])
+            $('#txtnome').val(result['ds_nome']);
+            $('#txtcpf_cnpj').val(result['ds_cpf_cnpj']);
+            $('#txttel').val(result['ds_tel']);
+            $('#txtcep').val(result['ds_cep']);
+            $('#txtuf').val(result['ds_uf']);
+            $('#txtmunic').val(result['ds_municipio']);
+            $('#txtlog').val(result['ds_logradouro']);
 
-            if (result['tp_tipo'] )
+            console.log(result['tp_tipo'])
+
+            if (result['tp_tipo'] === '0') {
+                console.log('Caiu');
+                $('#chk_status').prop("checked", false)
+            } else {
+                $('#chk_status').prop("checked", true)
+            }
+
             listarClientes();
         } else {
             console.log(result.erro);
         }
         
     });
-});
+};
 
 $('#btn_fechar').click(function(){
     modal.close();
