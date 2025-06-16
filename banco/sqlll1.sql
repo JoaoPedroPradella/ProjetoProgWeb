@@ -30,7 +30,8 @@ create table servicos (
 	ds_servico varchar(255) not null,
 	vl_hora float not null,
 	vl_minimo  float not null,
-	tp_tipo varchar(100) 
+	tp_tipo varchar(100),
+    ds_situacao char not null
 );
 
 create table categorias (
@@ -67,7 +68,8 @@ create table vendas (
 	cd_venda int not null auto_increment primary key, 
     dt_emissao varchar (8) not null,
     vl_frete float not null,
-    vl_total float not null,	
+    vl_total float not null,
+	ds_situacao varchar (50) not null, 
     cd_vendedor int,
     cd_veiculo int,
     cd_usuario int,
@@ -286,9 +288,28 @@ where cd_usuario = '1'
 
 select * from clientes
 select * from usuarios
+select * from categorias
+select * from produtos
+select * from ite_vendas
+select * from ser_vendas
+select * from vendas
+select * from servicos
+select * from veiculos
+
+insert into veiculos
+
+insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_teste', '234', '100', 'informatica', '1')
 
 
-insert into clientes (ds_nome, ds_cpf, ds_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898','', '4324323','488849','SC','teste','teste','1');
-insert into clientes (ds_nome, ds_cpf, ds_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898','', '4324323','488849','SC','teste','teste','1')
+insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('teste','1', '23','23','34','und','1')
+
+insert into categorias (ds_categoria) values ('categoria_teste')
+
+update clientes set tp_tipo = '0' where cd_cliente = '3'
+
+
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1')
+
 
 drop database infojp

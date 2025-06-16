@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <main id="main_servico">
+    <main id="main_categoria">
         <table>
             <tbody id="lista">
                 <tr>
@@ -54,25 +54,6 @@
                                     <label for="floatingPassword">Descrição</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txt_tipo" name="txt_tipo" required
-                                        class="form-control rounded-3">
-                                    <label for="floatingPassword">Tipo do serviço</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input input type="number" id="txt_vlmin" name="txt_vlmin" required class="form-control rounded-3">
-                                    <label for="floatingPassword">Valor/Minímo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" id="txt_vlhr" name="txt_vlhr" required
-                                        class="form-control rounded-3">
-                                    <label for="floatingPassword">Valor/Hora</label>
-                                </div>
-                                <div class="form-floating mb-3" id="status">
-                                    <div>
-                                        <input type="checkbox" id="chk_status" name="chk_status" checked>
-                                        <label for="chk_status">Ativo</label>
-                                    </div>
-                                </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
                                     id="btn_concluir" name="btn_concluir">Cadastrar</button>
                             </form>
@@ -81,11 +62,10 @@
                 </div>
             </div>
         </dialog>
-
     </main>
-      <!-- Importando jquery -->
+    <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
-    <script src="assets\js\servico.js"></script>
+    <script src="assets\js\categoria.js"></script>
 </body>
 
 </html>

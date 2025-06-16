@@ -38,16 +38,16 @@ session_start();
                             <li><a href="#" id="carregarCliente"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Clientes</a>
                             </li>
-                            <li><a href="cad_produto.php"
+                            <li><a href="#" id="carregarProduto"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Produtos</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarCategoria"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Categorias</a>
                             </li>
-                            <li><a href="cad_servico.php"
+                            <li><a href="#" id="carregarServico"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Serviços</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarVeiculos"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Veículos</a>
                             </li>
                             <li><a href="#"

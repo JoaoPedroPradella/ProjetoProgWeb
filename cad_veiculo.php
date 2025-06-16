@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <main id="main_servico">
+    <main id="main_veiculo">
         <table>
             <tbody id="lista">
                 <tr>
@@ -49,23 +49,18 @@
                                     <label for="floatingInput">Codigo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txt_desc" name="txt_desc" required
-                                        class="form-control rounded-3">
-                                    <label for="floatingPassword">Descrição</label>
-                                </div>
-                                <div class="form-floating mb-3">
                                     <input type="text" id="txt_tipo" name="txt_tipo" required
                                         class="form-control rounded-3">
-                                    <label for="floatingPassword">Tipo do serviço</label>
+                                    <label for="floatingPassword">Tipo/Modelo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input input type="number" id="txt_vlmin" name="txt_vlmin" required class="form-control rounded-3">
-                                    <label for="floatingPassword">Valor/Minímo</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="number" id="txt_vlhr" name="txt_vlhr" required
+                                    <input type="number" id="txt_placa" name="txt_placa" required
                                         class="form-control rounded-3">
-                                    <label for="floatingPassword">Valor/Hora</label>
+                                    <label for="floatingPassword">Placa</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input input type="text" id="txt_cor" name="txt_cor" required class="form-control rounded-3">
+                                    <label for="floatingPassword">Cor</label>
                                 </div>
                                 <div class="form-floating mb-3" id="status">
                                     <div>
@@ -85,7 +80,7 @@
     </main>
       <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
-    <script src="assets\js\servico.js"></script>
+    <script src="assets\js\veiculo.js"></script>
 </body>
 
 </html>

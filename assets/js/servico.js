@@ -3,13 +3,13 @@ if (typeof modal === 'undefined') {
 } 
 
 
-function listarClientes() {
+function listarServicos() {
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'cliente') return;
+    if ($('#conteudo').data('loaded') === 'servico') return;
 
     $.ajax({
-        url: 'src/Application/selecionar_cliente.php',
+        url: 'src/Application/selecionar_servico.php',
         method: 'POST',
         data: {
             'listagem': tipo
@@ -22,7 +22,7 @@ function listarClientes() {
 
             for (var i = 0; i < result.length; i++) {
                 $('#lista').prepend(
-                    '<div class="list-group"> <label class="list-group-item d-flex gap-2"> <input class="form-check-input flex-shrink-0" type="radio" name="opt_cliente" id="opt_cliente" value="' + result[i].cd_cliente + '" checked> <span>' + result[i].ds_nome + ' <small class="d-block text-body-secondary">' + result[i].cd_cliente + '</small></span> </label></div>');
+                    '<div class="list-group"> <label class="list-group-item d-flex gap-2"> <input class="form-check-input flex-shrink-0" type="radio" name="opt_servico" id="opt_servico" value="' + result[i].cd_servico + '" checked> <span>' + result[i].ds_servico + ' <small class="d-block text-body-secondary">' + result[i].cd_servico + '</small></span> </label></div>');
             }
         } else {
             console.log(result.erro);
@@ -37,7 +37,7 @@ $("#btn_novo").click(function(){
     $('#status').hide();
     $('#btn_concluir').show();
     $('#form input.form-control').val('');
-    $('#txtid').val('NOVO');
+    $('#txt_id').val('NOVO');
 })
 
 $('#btn_editar').click(function(){
@@ -50,43 +50,36 @@ $('#btn_detalhes').click(function(){
     console.log('Detalhes');
     $('#txttitulo').html('Detalhes');
     $('#btn_concluir').hide();
-    console.log($('#chk_status').val());
 }); 
 
 function alterarCadastro (){
     modal.showModal();    
     $('#status').show();
     $status = $('#checkbox:checked').val();
-    console.log($status);
 
     $.ajax ({
-        url: 'src/Application/selecionar_cliente.php',
+        url: 'src/Application/selecionar_servico.php',
         method: 'POST',
         data: {
-            'id': $('#opt_cliente:checked').val(),
+            'id': $('#opt_servico:checked').val(),
         },
         dataType: 'json'
     }).done(function (result){
         if (!result.erro){
-            $('#txtid').val(result['cd_cliente']);
-            $('#txtnome').val(result['ds_nome']);
-            $('#txtcpf_cnpj').val(result['ds_cpf_cnpj']);
-            $('#txttel').val(result['ds_tel']);
-            $('#txtcep').val(result['ds_cep']);
-            $('#txtuf').val(result['ds_uf']);
-            $('#txtmunic').val(result['ds_municipio']);
-            $('#txtlog').val(result['ds_logradouro']);
+            $('#txt_id').val(result['cd_servico']);
+            $('#txt_desc').val(result['ds_servico']);
+            $('#txt_tipo').val(result['tp_tipo']);
+            $('#txt_vlmin').val(result['vl_minimo']);
+            $('#txt_vlhr').val(result['vl_hora']);
 
-            console.log(result['tp_tipo'])
-
-            if (result['tp_tipo'] === '0') {
+            if (result['ds_situacao'] === '0') {
                 console.log('Caiu');
                 $('#chk_status').prop("checked", false)
             } else {
                 $('#chk_status').prop("checked", true)
             }
 
-            listarClientes();
+            listarServicos();
         } else {
             console.log(result.erro);
         }
@@ -101,17 +94,14 @@ $('#btn_fechar').click(function(){
 $('#form').submit(function (e){
     e.preventDefault();
     $.ajax({
-        url: 'src/Application/inserir_cliente.php',
+        url: 'src/Application/inserir_servico.php',
         method: 'POST',
         data: {
-            'id': $('#txtid').val(),
-            'nome': $('#txtnome').val(),
-            'cpf_cnpj': $('#txtcpf_cnpj').val(),
-            'telefone': $('#txttel').val(),
-            'cep': $('#txtcep').val(),
-            'uf': $('#txtuf').val(),
-            'munic': $('#txtmunic').val(),
-            'lograd': $('#txtlog').val(),
+            'id': $('#txt_id').val(),
+            'desc': $('#txt_desc').val(),
+            'tipo': $('#txt_tipo').val(),
+            'vlmin': $('#txt_vlmin').val(),
+            'vlhr': $('#txt_vlhr').val(),
             'status': $('#chk_status').prop('checked') ? 1 : 0
         },
         dataType: 'json'
@@ -119,7 +109,7 @@ $('#form').submit(function (e){
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarClientes();
+            listarServicos();
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -128,32 +118,19 @@ $('#form').submit(function (e){
     });
 });
 
-/*$('#bnt_consultaCEP').click(function(){
-    $.ajax({
-        url: 'src/Application/consulta_cep.php',
-        method: 'POST',
-        data: {
-            'cep': $('#txtcep').val(),
-        },
-        dataType: 'json'
-    }).done(function(result){
-        alert(result);
-    })
-})*/
-
 $('#btn_exc').click(function(){
     if(confirm('Tem certeza que deseja excluir o cadastro?')){
         $.ajax ({
-            url: 'src/Application/excluir_cliente.php',
+            url: 'src/Application/excluir_servico.php',
             method: 'POST',
             data: {
-                'id': $('#opt_cliente:checked').val(),
+                'id': $('#opt_servico:checked').val(),
             },
             dataType: 'json'
         }).done(function(result){
             if (!result.erro) {
                 alert(result);
-                listarClientes();
+                listarServicos();
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
@@ -163,4 +140,4 @@ $('#btn_exc').click(function(){
     
 });
 
-listarClientes();
+listarServicos();
