@@ -50,10 +50,10 @@ session_start();
                             <li><a href="#" id="carregarVeiculos"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Veículos</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarVendedor"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Vendedores</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarPagamento"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Pagamentos</a>
                             </li>
                             <li><a href="#"

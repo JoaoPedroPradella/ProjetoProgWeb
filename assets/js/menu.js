@@ -45,3 +45,21 @@ $("#carregarVeiculos").click(function () {
         listarVeiculos(); // só chama após o carregamento
     });
 });
+
+$("#carregarVendedor").click(function () {
+    if (paginaAtual === 'vendedor') return; // já carregado, não faz nada
+  
+    $("#conteudo").load("cad_vendedor.php", function () {
+        paginaAtual = 'vendedor'; // marca que já carregou cliente
+        listarVendedores(); // só chama após o carregamento
+    });
+});
+
+$("#carregarPagamento").click(function () {
+    if (paginaAtual === 'pagamento') return; // já carregado, não faz nada
+  
+    $("#conteudo").load("cad_pagamento.php", function () {
+        paginaAtual = 'pagamento'; // marca que já carregou cliente
+        listarPagamentos(); // só chama após o carregamento
+    });
+});

@@ -295,8 +295,13 @@ select * from ser_vendas
 select * from vendas
 select * from servicos
 select * from veiculos
+select * from vendedores
+select * from pagamentos
+select * from pag_vendas
 
-insert into veiculos
+insert into veiculos (ds_placa, ds_tipo, ds_cor, ds_situacao) values ('32432', 'bmw', 'azul', '1')
+insert into vendedores (cd_vendedor, ds_nome) values ('1', 'pedro')
+insert into pagamentos (cd_vendedor, ds_pag) values ('1', 'pedro')
 
 insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_teste', '234', '100', 'informatica', '1')
 
@@ -310,6 +315,5 @@ update clientes set tp_tipo = '0' where cd_cliente = '3'
 
 insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
 insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1')
-
 
 drop database infojp
