@@ -10,6 +10,7 @@
 
 <body>
     <main id="main_cliente">
+        <h1>Clientes</h1>
         <table>
             <tbody id="lista">
                 <tr>

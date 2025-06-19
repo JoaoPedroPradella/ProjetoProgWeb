@@ -130,3 +130,49 @@ table {
     border-radius: 10px;
     background-color: rgba(0, 0, 255, 0.562);
 }
+
+#modal_venda {
+    width: 1200px;
+    height: 1300px;
+    padding: 0px;
+}
+
+/* Possicionar divs lado a lado */
+#transporte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+#slc_veiculo {
+    width: 800px;
+}
+
+#txt_frete {
+    width: 270px;
+}
+
+/* Possicionar divs lado a lado */
+#prod_serv {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#slc_item {
+    width: 1000px;
+}
+
+/* Possicionar divs lado a lado */
+#vl_qtd {
+    display: flex;
+    align-items: center; 
+}
+
+#dv_vlu {
+    margin-right: 10px;
+}
+
+#dv_desc {
+    margin-right: 200px;
+}

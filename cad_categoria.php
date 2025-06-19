@@ -10,6 +10,7 @@
 
 <body>
     <main id="main_categoria">
+    <h1>Categorias</h1>
         <table>
             <tbody id="lista">
                 <tr>

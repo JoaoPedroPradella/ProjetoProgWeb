@@ -13,6 +13,7 @@ $form['desc'] = isset($_POST['desc']) ? $_POST['desc'] : '';
 
 if (in_array('', $form)) {
     echo json_encode(['erro' => 'Existem campos vazios. Verifique!']);
+    exit;
 }
 
 $bd = new BancoDeDados();

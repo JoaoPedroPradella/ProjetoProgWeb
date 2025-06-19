@@ -9,8 +9,8 @@
 </head>
 
 <body>
-    <main id="main_pagamentos">
-    <h1>Pagamentos</h1>
+    <main id="main_usuario">
+    <h1>Usuários</h1>
         <table>
             <tbody id="lista">
                 <tr>
@@ -40,6 +40,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                                 id="btn_fechar"></button>
                         </div>
+
                         <div class="modal-body p-5 pt-0">
                             <form class="" id="form">
                                 <div class="form-floating mb-3">
@@ -49,9 +50,43 @@
                                     <label for="floatingInput">Codigo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" id="txt_desc" name="txt_desc" required
+                                    <input type="text" id="txt_nome" name="txt_nome" required
                                         class="form-control rounded-3">
-                                    <label for="floatingPassword">Descrição</label>
+                                    <label for="floatingPassword">Nome</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="txt_email" name="txt_email" required
+                                        class="form-control rounded-3">
+                                    <label for="floatingPassword">E-mail</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input input type="number" id="txt_senha" name="txt_senha" required class="form-control rounded-3">
+                                    <label for="floatingPassword">Senha</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" id="txt_cel" name="txt_cel" required
+                                        class="form-control rounded-3">
+                                    <label for="floatingPassword">Celular</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="number" id="txt_cpf" name="txt_cpf" required
+                                        class="form-control rounded-3">
+                                    <label for="floatingPassword">CPF</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="txt_nasc" name="txt_nasc" required
+                                        class="form-control rounded-3">
+                                    <label for="floatingPassword">Data Nascimento</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" id="txt_endereco" name="txt_endereco" required class="form-control rounded-3">
+                                    <label for="floatingPassword">Endereço</label>
+                                </div>
+                                <div class="form-floating mb-3" id="status">
+                                    <div>
+                                        <input type="checkbox" id="chk_status" name="chk_status" checked>
+                                        <label for="chk_status">Ativo</label>
+                                    </div>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
                                     id="btn_concluir" name="btn_concluir">Cadastrar</button>
@@ -61,11 +96,10 @@
                 </div>
             </div>
         </dialog>
-
     </main>
-      <!-- Importando jquery -->
+    <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
-    <script src="assets\js\pagamento.js"></script>
+    <script src="assets\js\usuario.js"></script>
 </body>
 
 </html>

@@ -72,7 +72,6 @@ create table vendas (
 	ds_situacao varchar (50) not null, 
     cd_vendedor int,
     cd_veiculo int,
-    cd_usuario int,
     cd_cliente int
 );
 
@@ -181,11 +180,6 @@ foreign key (cd_servico)
 references servicos (cd_servico);
 
 alter table vendas
-add constraint FK_VENDAS_USUARIOS
-foreign key (cd_usuario)
-references usuarios (cd_usuario);
-
-alter table vendas
 add constraint FK_VENDAS_CLIENTES
 foreign key (cd_cliente)
 references clientes (cd_cliente);
@@ -281,7 +275,7 @@ foreign key (cd_pagamento)
 references pagamentos (cd_pag);
 
 -- Inserts --
-insert into usuarios (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao ) values ('adm', '43243243', 'adm@email.com.br', '432432423', 'teste', '1', '28022003', '1')
+
 
 update usuarios set ds_email = 'adm@email.com.br'
 where cd_usuario = '1'
@@ -298,22 +292,24 @@ select * from veiculos
 select * from vendedores
 select * from pagamentos
 select * from pag_vendas
-
-insert into veiculos (ds_placa, ds_tipo, ds_cor, ds_situacao) values ('32432', 'bmw', 'azul', '1')
-insert into vendedores (cd_vendedor, ds_nome) values ('1', 'pedro')
-insert into pagamentos (cd_vendedor, ds_pag) values ('1', 'pedro')
-
-insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_teste', '234', '100', 'informatica', '1')
+select * from vendas
 
 
-insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('teste','1', '23','23','34','und','1')
+insert into usuarios (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao ) values ('adm', '43243243', 'adm@email.com.br', '432432423', 'teste', '1', '28022003', '1');
+insert into veiculos (ds_placa, ds_tipo, ds_cor, ds_situacao) values ('32432', 'bmw', 'azul', '1');
+insert into vendedores (cd_vendedor, ds_nome) values ('1', 'pedro');
+insert into pagamentos (cd_pag, ds_pag) values ('1', 'DinDin');
+insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_teste', '234', '100', 'informatica', '1');
+insert into categorias (ds_categoria) values ('teste');
+insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('teste','1', '23','23','34','und','1');
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1');
 
-insert into categorias (ds_categoria) values ('categoria_teste')
+insert into categorias (ds_categoria) values ('categoria_teste');
 
 update clientes set tp_tipo = '0' where cd_cliente = '3'
 
 
-insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
-insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1')
+
 
 drop database infojp

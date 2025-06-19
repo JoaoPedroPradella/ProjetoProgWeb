@@ -10,6 +10,7 @@
 
 <body>
     <main id="main_vendedor">
+    <h1>Vendedores</h1>
         <table>
             <tbody id="lista">
                 <tr>

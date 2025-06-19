@@ -56,7 +56,7 @@ session_start();
                             <li><a href="#" id="carregarPagamento"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Pagamentos</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarUsuarios"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Usuários</a>
                             </li>
                         </ul>
@@ -69,7 +69,7 @@ session_start();
                     </button>
                     <div class="collapse" id="dashboard-collapse">
                         <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                            <li><a href="#"
+                            <li><a href="#" id="carregarVendas"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Vendas</a>
                             </li>
                             <li><a href="#"

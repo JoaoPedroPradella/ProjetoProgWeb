@@ -63,3 +63,21 @@ $("#carregarPagamento").click(function () {
         listarPagamentos(); // só chama após o carregamento
     });
 });
+
+$("#carregarUsuarios").click(function () {
+    if (paginaAtual === 'usuario') return; // já carregado, não faz nada
+  
+    $("#conteudo").load("cad_usuario.php", function () {
+        paginaAtual = 'usuario'; // marca que já carregou cliente
+        listarUsuarios(); // só chama após o carregamento
+    });
+});
+
+$("#carregarVendas").click(function () {
+    if (paginaAtual === 'venda') return; // já carregado, não faz nada
+  
+    $("#conteudo").load("cad_venda.php", function () {
+        paginaAtual = 'venda'; // marca que já carregou cliente
+        listarVendas(); // só chama após o carregamento
+    });
+});

@@ -55,7 +55,7 @@ class produto
     public function listarProdutos(string $id, string $tipo): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_produto, ds_produto FROM produtos ORDER BY cd_produto DESC';
+            $sql = 'SELECT cd_produto, ds_produto, vl_venda FROM produtos ORDER BY cd_produto DESC';
             $dados = $this->bd->selecionarRegistros($sql);
             return ($dados);
             exit();
