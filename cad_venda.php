@@ -53,32 +53,32 @@
                                     <select name="slc_cliente" class="form-control rounded-3" id="slc_cliente">
                                         <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                     </select>
-                                    <label for="floatingPassword">Cliente</label>
+                                    <label for="floatingInput">Cliente</label>
                                 </div>
                                 <div id="transporte">
                                     <div class="form-floating mb-3" id="dv_veiculo">
                                         <select name="slc_veiculo" class="form-control rounded-3" id="slc_veiculo">
                                             <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                         </select>
-                                        <label for="floatingPassword">Veículos</label>
+                                        <label for="floatingInput">Veículos</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input input type="number" id="txt_frete" name="txt_frete" required class="form-control rounded-3">
-                                        <label for="floatingPassword">Frete</label>
+                                        <input type="number" id="txt_frete" name="txt_frete" required class="form-control rounded-3" value="0">
+                                        <label for="floatingInput">Frete</label>
                                     </div>
                                 </div>
                                 <div class="form-floating mb-3" id="dv_vendedor">
                                     <select name="slc_vendedor" class="form-control rounded-3" id="slc_vendedor">
                                         <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                     </select>
-                                    <label for="floatingPassword">Vendedor</label>
+                                    <label for="floatingInput">Vendedor</label>
                                 </div>
                                 <div id="prod_serv">
                                     <div class="form-floating mb-3" id="dv_item">
                                         <select name="slc_item" class="form-control rounded-3" id="slc_item">
                                             <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                         </select>
-                                        <label for="floatingPassword">Item</label>
+                                        <label for="floatingInput">Item</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <div>
@@ -90,36 +90,37 @@
                                 <div id="vl_qtd">
                                     <div class="form-floating mb-3" id="dv_vlu">
                                         <input input type="number" id="txt_qtd" name="txt_qtd" required class="form-control rounded-3">
-                                        <label for="floatingPassword">QTD</label>
+                                        <label for="floatingInput">QTD</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_vlu">
                                         <input input type="number" id="txt_vlu" name="txt_vlu" required class="form-control rounded-3">
-                                        <label for="floatingPassword">Valor Unit</label>
+                                        <label for="floatingInput">Valor</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_desc">
                                         <input input type="number" id="txt_desc" name="txt_desc" required class="form-control rounded-3">
-                                        <label for="floatingPassword">Valor Desc</label>
+                                        <label for="floatingInput">Valor Desc</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_total">
                                         <input input type="number" id="txt_vl_total" name="txt_vl_total" required class="form-control rounded-3" readonly>
-                                        <label for="floatingPassword">Valor Total</label>
+                                        <label for="floatingInput">Valor Total</label>
                                     </div>
                                 </div>
-                                <div class="form-floating mb-3" id="status">
+                                <!-- <div id="dv_btn_prodserv">
+                                    <div id="dv_prod">
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_prod" name="btn_prod">Produtos</button>
+                                    </div>
                                     <div>
-                                        <input type="checkbox" id="chk_status" name="chk_status" checked>
-                                        <label for="chk_status">Ativo</label>
+                                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_serv" name="btn_serv">Serviços</button>
                                     </div>
-                                </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_concluir" name="btn_concluir">Produtos</button>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_concluir" name="btn_concluir">Serviços</button>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_concluir" name="btn_concluir">Adicionar</button>
+                                </div> -->
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic" name="btn_adic">Adicionar</button>
                                 <table>
                                     <tbody>
                                         <tr>
                                             <th>Item</th>
                                             <th>qtd</th>
-                                            <th>valor unit</th>
+                                            <th>valor</th>
+                                            <th>tipo</th>
                                         </tr>
                                         <tr>
                                             <td>Joao</td>
@@ -130,6 +131,7 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <label for="total" id="lbl_total"></label>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
                                     id="btn_concluir" name="btn_concluir">Cadastrar</button>
                             </form>

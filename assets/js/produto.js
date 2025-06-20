@@ -189,4 +189,6 @@ function selecionarCategoria(callback) {
     });
 }
 
+
+
 listarProdutos();

@@ -303,7 +303,8 @@ function selecionarServico(callback) {
     });
 }
 
-
-
+$(document).on('click', '#btn_adic', function () {
+    console.log($('#txt_vlu').val())
+})
 
 listarVendas();

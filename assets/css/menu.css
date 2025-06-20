@@ -176,3 +176,12 @@ table {
 #dv_desc {
     margin-right: 200px;
 }
+
+#dv_btn_prodserv {
+    display: flex;
+    align-items: center;
+}
+
+#dv_prod {
+    margin-right: 10px;
+}
