@@ -21,9 +21,8 @@
         <div class="container">
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                    <li class="nav-item"><button onclick="alterarCadastro()" class="nav-link px-2 text-body-secondary" id="btn_editar" name="btn_editar">Editar</button></li>
-                    <li class="nav-item"><button onclick="alterarCadastro()" class="nav-link px-2 text-body-secondary" id="btn_detalhes" name="btn_detalhes">Detalhes</button></li>
-                    <li class="nav-item"><button onclick class="nav-link px-2 text-body-secondary" id="btn_exc" name="btn_exc">Excluir</button></li>
+                    <li class="nav-item"><button class="nav-link px-2 text-body-secondary" id="btn_detalhes" name="btn_detalhes">Detalhes</button></li>
+                    <li class="nav-item"><button onclick class="nav-link px-2 text-body-secondary" id="btn_canc" name="btn_canc">Cancelar</button></li>
                 </ul>
                 <ul class="nav justify-content-center">
                     <li class="nav-item"><button id="btn_novo" id="btn_novo">NOVO</button></li>
@@ -123,6 +122,7 @@
                                             <th>valor</th>
                                             <th>desconto</th>
                                             <th>tipo</th>
+                                            <th>vendedor</th>
                                             <th>total</th>
                                         </tr>
                                     </thead>
@@ -134,8 +134,7 @@
                                      Total: <label for="total" id="total"></label>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_pag" name="btn_pag">Pagamento</button>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
-                                    id="btn_concluir" name="btn_concluir">Cadastrar</button>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="btn_concluir" name="btn_concluir">Cadastrar</button>
                             </form>
                         </div>
                     </div>
@@ -170,7 +169,6 @@
                                 <table>
                                     <thead>
                                         <tr>
-                                            <th>codigo</th>
                                             <th>Pagamento</th>
                                             <th>Valor</th>
                                         </tr>
@@ -182,7 +180,7 @@
                                 <div class="form-floating mb-3" id="divRest">
                                      Restante: <label for="restante" id="restante"></label>
                                 </div>
-                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="btn_pag" name="btn_pag">Concluir</button>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_cad_pag" name="btn_cad_pag">Concluir</button>
                             </form>
                         </div>
                     </div>

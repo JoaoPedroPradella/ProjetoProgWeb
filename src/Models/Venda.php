@@ -4,55 +4,109 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use DomainException;
+use Exception;
 use App\Models\BancoDeDados;
 
-class Venda {
+class Venda
+{
 
     private BancoDeDados $bd;
-      // Injeção de dependência para a classe BancoDeDados
-      public function __construct(BancoDeDados $bd)
-      {
-          $this->bd = $bd;
-      }
-    
-    public function cadastrar(array $form): string 
+    // Injeção de dependência para a classe BancoDeDados
+    public function __construct(BancoDeDados $bd)
     {
-        if ($form['id'] == 'NOVO') {
-            $sql = 'INSERT INTO vendas (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao) VALUES
-            (?, ?, ?, ?, ?, ?, ?, ?)';
-            $params = [
-                $form['nome'],
-                $form['cpf'],
-                $form['email'],
-                $form['cel'],
-                $form['endereco'],
-                $form['senha'],
-                $form['nasc'],
-                '1'
-            ];
-            $msg = 'Usuário cadastrado com sucesso!';
-        } else {
-            $sql = 'UPDATE vendas SET ds_usuario = ?, ds_cpf = ?, ds_email = ?, ds_celular = ?, ds_endereco = ?, ds_senha = ?, ds_nascimento = ?, ds_situacao = ? 
-            WHERE cd_venda = ?;';
-            $params = [
-                $form['nome'],
-                $form['cpf'],
-                $form['email'],
-                $form['cel'],
-                $form['endereco'],
-                $form['senha'],
-                $form['nasc'],
-                $form['status'],
-                $form['id']
-            ];
-            $msg = 'Usuário alterado com sucesso!';
-        }
+        $this->bd = $bd;
+    }
+
+    public function cadastrar(array $form, array $dadosItens, array $dadosPagamentos): string
+    {
+        $sql = 'INSERT INTO vendas (dt_emissao, vl_frete, vl_total, ds_situacao, cd_vendedor, cd_veiculo, cd_cliente) VALUES
+        (CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?)';
+        $params = [
+            $form['frete'],
+            $form['valTotal'],
+            'Concluida',
+            $form['vendedor'],
+            $form['veiculo'],
+            $form['cliente']
+        ];
+
         $this->bd->executarComando($sql, $params);
+
+        $sql = 'SELECT MAX(cd_venda) AS max_venda FROM vendas';
+
+        $dados = $this->bd->selecionarRegistros($sql);
+
+        $numVenda = $dados[0]['max_venda'] ?? null;
+        
+        if (!$numVenda) {
+            throw new Exception('Erro ao obter o número da venda.');
+        }
+
+        foreach ($dadosItens as $item) {
+            if ($item['tipo_item'] == 'produto') {
+                $sql = 'INSERT INTO ite_vendas (ds_produto, vl_uni, qt_venda, vl_desc, vl_total, cd_venda, cd_produto, cd_vendedor) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+
+                $params = [
+                    $item['desc'],  // Descrição do item
+                    $item['prec'],  // Preço do item
+                    $item['qtd'],  // Quantidade do item
+                    $item['desconto'],  // Desconto do item
+                    $item['total_item'],  // Valor total do item
+                    $numVenda, // Código da venda
+                    $item['idItem'],  // Código do item
+                    $item['id_vendedor'], // Código do vendedor
+
+                ];
+            } else {
+                $sql = 'INSERT INTO ser_vendas (ds_servico, vl_hora, qt_hora, vl_desc, vl_total, cd_venda, cd_servico) VALUES (?, ?, ?, ?, ?, ?, ?)';
+
+                $params = [
+                    $item['desc'],  // Descrição do item
+                    $item['prec'],  // Preço do item
+                    $item['qtd'],  // Quantidade do item
+                    $item['desconto'],  // Desconto do item
+                    $item['total_item'],  // Valor total do item
+                    $numVenda, // Código da venda
+                    $item['idItem'],  // Código do item
+                ];
+            }
+
+
+            $this->bd->executarComando($sql, $params);
+        }
+
+        foreach ($dadosItens as $item) {
+            if ($item['tipo_item'] == 'produto') {
+                $sql = 'UPDATE produtos SET qt_estoque = qt_estoque - ? WHERE cd_produto=?';
+
+                $params = [
+                    $item['qtd'],  // Quantidade do item
+                    $item['idItem'],  // Código do item
+                ];
+
+                $this->bd->executarComando($sql, $params);
+            }
+        }
+
+        foreach ($dadosPagamentos as $pagamento) {
+            $sql = 'INSERT INTO pag_vendas (vl_pagamento, cd_venda, cd_pagamento) VALUES (?, ?, ?)';
+
+            $params = [
+                $pagamento['val_pago'],  // Valor Pago
+                $numVenda,
+                $pagamento['idPag'],  // ID Pagamento 
+            ];
+
+            $this->bd->executarComando($sql, $params);
+        }
+
+
+        $msg = 'Venda cadastrada com sucesso!';
+
         return $msg;
     }
 
-    public function listarVendas (string $id, string $tipo): mixed
+    public function listarVendas(string $id, string $tipo): mixed
     {
         if (!$tipo == '') {
             $sql = 'SELECT cd_venda, dt_emissao, vl_frete, vl_total, ds_situacao,  cd_vendedor, cd_veiculo, cd_cliente FROM vendas ORDER BY cd_venda DESC';
@@ -76,10 +130,9 @@ class Venda {
 
     public function cancelarVenda(string $id): string
     {
-            $sql = 'DELETE FROM vendas WHERE cd_venda = ?';
-            $params = [$id];
-            $this->bd->executarComando($sql, $params);
-            return 'Usuário excluído com sucesso!';
+        $sql = 'UPDATE vendas SET ds_situacao = ? WHERE cd_venda = ?';
+        $params = ['Cancelada', $id];       
+        $this->bd->executarComando($sql, $params);
+        return 'Venda cancelada com sucesso!';
     }
 }
-
