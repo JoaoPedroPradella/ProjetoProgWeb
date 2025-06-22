@@ -185,3 +185,7 @@ table {
 #dv_prod {
     margin-right: 10px;
 }
+
+#txt_total_venda {
+    width: 50px;
+}

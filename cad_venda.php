@@ -63,7 +63,7 @@
                                         <label for="floatingInput">Veículos</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="number" id="txt_frete" name="txt_frete" required class="form-control rounded-3" value="0">
+                                        <input type="number" id="txt_frete" name="txt_frete" required class="form-control rounded-3">
                                         <label for="floatingInput">Frete</label>
                                     </div>
                                 </div>
@@ -89,19 +89,19 @@
                                 </div>
                                 <div id="vl_qtd">
                                     <div class="form-floating mb-3" id="dv_vlu">
-                                        <input input type="number" id="txt_qtd" name="txt_qtd" required class="form-control rounded-3">
+                                        <input type="number" id="txt_qtd" name="txt_qtd" required class="form-control rounded-3">
                                         <label for="floatingInput">QTD</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_vlu">
-                                        <input input type="number" id="txt_vlu" name="txt_vlu" required class="form-control rounded-3">
+                                        <input type="number" id="txt_vlu" name="txt_vlu" required class="form-control rounded-3">
                                         <label for="floatingInput">Valor</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_desc">
-                                        <input input type="number" id="txt_desc" name="txt_desc" required class="form-control rounded-3">
+                                        <input type="number" id="txt_desc" name="txt_desc" required class="form-control rounded-3">
                                         <label for="floatingInput">Valor Desc</label>
                                     </div>
                                     <div class="form-floating mb-3" id="dv_total">
-                                        <input input type="number" id="txt_vl_total" name="txt_vl_total" required class="form-control rounded-3" readonly>
+                                        <input type="number" id="txt_vl_total" name="txt_vl_total" required class="form-control rounded-3" readonly>
                                         <label for="floatingInput">Valor Total</label>
                                     </div>
                                 </div>
@@ -115,23 +115,25 @@
                                 </div> -->
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic" name="btn_adic">Adicionar</button>
                                 <table>
-                                    <tbody>
+                                    <thead>
                                         <tr>
-                                            <th>Item</th>
+                                            <th>codigo</th>
+                                            <th>descricao</th>
                                             <th>qtd</th>
                                             <th>valor</th>
+                                            <th>desconto</th>
                                             <th>tipo</th>
+                                            <th>total</th>
                                         </tr>
-                                        <tr>
-                                            <td>Joao</td>
-                                            <td>Pedro</td>
-                                        </tr>
-                                        <tr>
-                                            <td>teste</td>
-                                        </tr>
+                                    </thead>
+                                    <tbody id="listaItens">
+                                        <!-- Lista os itens dinâmicamente -->
                                     </tbody>
                                 </table>
-                                <label for="total" id="lbl_total"></label>
+                                <div class="form-floating mb-3" id="divTotal">
+                                     Total: <label for="total" id="total"></label>
+                                </div>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_pag" name="btn_pag">Pagamento</button>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit"
                                     id="btn_concluir" name="btn_concluir">Cadastrar</button>
                             </form>
@@ -140,6 +142,55 @@
                 </div>
             </div>
         </dialog>
+
+<!-- Modal de Pagamento -->
+        <dialog id="modal_pagamento">
+            <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
+                <div>
+                    <div>
+                        <div class="modal-header p-5 pb-4 border-bottom-0">
+                            <h1 class="fw-bold mb-0 fs-2" id="txt_titulo"></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                id="btn_fechar_pag"></button>
+                        </div>
+
+                        <div class="modal-body p-5 pt-0">
+                            <form class="" id="form">
+                                <div class="form-floating mb-3" id="dv_pagamento">
+                                    <select name="slc_pagamento" class="form-control rounded-3" id="slc_pagamento">
+                                        <!-- Serão adicionadas dinamicamente as categorias aqui -->
+                                    </select>
+                                    <label for="floatingInput">Pagamento</label>
+                                </div>
+                                <div class="form-floating mb-3" id="dv_pag">
+                                        <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
+                                        <label for="floatingInput">Valor</label>
+                                    </div>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic_pag" name="btn_adic_pag">Adicionar</button>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>codigo</th>
+                                            <th>Pagamento</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaPagamentos">
+                                        <!-- Lista os itens dinâmicamente -->
+                                    </tbody>
+                                </table>
+                                <div class="form-floating mb-3" id="divRest">
+                                     Restante: <label for="restante" id="restante"></label>
+                                </div>
+                                <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="btn_pag" name="btn_pag">Concluir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </dialog>
+
+
     </main>
     <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
