@@ -43,6 +43,8 @@ function listarVendas() {
 
 
 $("#btn_novo").click(function () {
+    $('#listaItens').empty();
+    $('#listaPagamentos').empty();
     selecionarCliente(function () {
         selec_cliente = $('#slc_cliente').val();
     });;
@@ -145,18 +147,17 @@ $('#btn_editar').click(function () {
 });
 
 $('#btn_detalhes').click(function () {
+    selecionarVeiculo();
+    selecionarVendedor();
     modal_venda.showModal();
-    $('#status').show();
-    $status = $('#checkbox:checked').val();
-    console.log($status);
-
+    $('#listaItens').empty();
+    $('#listaPagamentos').empty();
     console.log('Detalhes');
-    $('#txttitulo').html('Detalhes');
+    $('#txt_titulo').html('Detalhes');
     $('#btn_concluir').hide();
-    console.log($('#chk_status').val());
 
     $.ajax({
-        url: 'src/Application/selecionar-venda.php',
+        url: 'src/Application/selecionar_venda.php',
         method: 'POST',
         data: {
             'id': $('#opt_venda:checked').val(),
@@ -164,17 +165,24 @@ $('#btn_detalhes').click(function () {
         dataType: 'json',
     }).done(function (result) {
         if (!result.erro) {
-            const produtos = result[0]; // Array de produtos
-            produtos.forEach(produto => {
-                $('#listaItens').prepend(
-                    '<tr> <td>' + produto.descricao + '</td><td>' + produto.quantidade + '</td><td>' + produto.precounit + '</td></tr>');
-                $('#txtqtd').val('1');
+            selecionarCliente(function () {
+                $('#slc_cliente option[value="' + result['cd_cliente'] + '"]').text(result['cliente']);
+
             });
-            const venda = result[1]; // Objeto com informações gerais
-            $('#txtnum').val(venda.numvenda);
-            $('#clientes option:selected').val(venda.cliente);
-            $('#pagamento option:selected').text(venda.pagamento);
-            $('#vtotal').val(venda.valortotal);
+            console.log(result);
+            //$('#slc_categoria option[value="' + result['cd_categoria'] + '"]').text(result['ds_categoria']);
+           
+            // const produtos = result[0]; // Array de produtos
+            // produtos.forEach(produto => {
+            //     $('#listaItens').prepend(
+            //         '<tr> <td>' + produto.descricao + '</td><td>' + produto.quantidade + '</td><td>' + produto.precounit + '</td></tr>');
+            //     $('#txtqtd').val('1');
+            // });
+            // const venda = result[1]; // Objeto com informações gerais
+            // $('#txtnum').val(venda.numvenda);
+            // $('#clientes option:selected').val(venda.cliente);
+            // $('#pagamento option:selected').text(venda.pagamento);
+            // $('#vtotal').val(venda.valortotal);
         } else {
             console.log(result.erro); // Mostra o erro retornado pelo PHP
         }
@@ -235,7 +243,7 @@ $('#form').submit(function (e) {
     // Capturar os pagamentos
     for (i = 0; i < listaPagamentos.length; i++) {
         let linha = listaPagamentos[i];
-      
+
         // Seleciona os <td> específicos da linha atual
         let descPag = linha.querySelector('#desc_pag').textContent;
         let idPag = linha.querySelector('#desc_pag').getAttribute('data-value');
@@ -617,7 +625,7 @@ $('#btn_adic_pag').click(function () {
 
         $('#listaPagamentos').prepend(
             '<tr id="pag-' + pagId + '" name="registroPag"><td id="desc_pag" data-value=' + $('#slc_pagamento').val() + '>' + $('#slc_pagamento option:selected').text() + '</td><td id="vl_pag">' + valor_pag + '</td><td> <a href="#" onclick="excluirPag(' + pagId + ')" >Excluir</a> </td><tr>');
-            
+
         total_pago = total_pago + Number(valor_pag);
 
         pagId++

@@ -37,7 +37,7 @@ class Venda
         $dados = $this->bd->selecionarRegistros($sql);
 
         $numVenda = $dados[0]['max_venda'] ?? null;
-        
+
         if (!$numVenda) {
             throw new Exception('Erro ao obter o número da venda.');
         }
@@ -114,9 +114,46 @@ class Venda
             return ($dados);
             exit();
         }
-        $sql = 'SELECT dt_emissao, vl_frete, vl_total, ds_situacao,  cd_vendedor, cd_veiculo, cd_cliente FROM vendas WHERE cd_venda = ?';
+        // VENDAS
+        $sql = 'SELECT v.cd_venda, c.ds_nome as cliente, vec.ds_tipo, v.vl_frete, vend.ds_nome as vendedor, v.cd_vendedor, v.cd_veiculo, v.cd_cliente FROM vendas v 
+                INNER JOIN clientes c
+                ON v.cd_cliente = c.cd_cliente
+                INNER JOIN veiculos vec
+                ON v.cd_veiculo = vec.cd_veiculo 
+                INNER JOIN vendedores vend
+                ON v.cd_vendedor = vend.cd_vendedor
+                WHERE v.cd_venda = ?';
         $params = [$id];
-        $dados = $this->bd->selecionarRegistro($sql, $params);
+        $dados[] = $this->bd->selecionarRegistro($sql, $params);
+
+        // ITEVENDAS
+        $sql = 'SELECT i.cd_produto, i.ds_produto, i.qt_venda, i.vl_uni, i.vl_desc, vend.ds_nome, i.vl_total FROM vendas v 
+                INNER JOIN ite_vendas i 
+                ON v.cd_venda = i.cd_venda
+                INNER JOIN vendedores vend
+                ON v.cd_vendedor = vend.cd_vendedor
+                WHERE v.cd_venda = ?';
+        $params = [$id];
+        $dados[] = $this->bd->selecionarRegistros($sql, $params);
+
+        // SERVENDAS
+        $sql = 'SELECT s.cd_servico, s.ds_servico, s.vl_hora, s.qt_hora, s.vl_desc, s.vl_total FROM vendas v 
+                INNER JOIN ser_vendas s
+                ON v.cd_venda = s.cd_venda
+                WHERE v.cd_venda = ?';
+        $params = [$id];
+        $dados[] = $this->bd->selecionarRegistros($sql, $params);
+
+        // PAGAMENTOS
+        $sql = 'SELECT pag.ds_pag, p.vl_pagamento FROM vendas v 
+                INNER JOIN pag_vendas p
+                ON v.cd_venda = p.cd_venda
+                INNER JOIN pagamentos pag
+                ON p.cd_pagamento = pag.cd_pag 
+                WHERE v.cd_venda = ?';
+        $params = [$id];
+        $dados[] = $this->bd->selecionarRegistros($sql, $params);
+
 
         if (!empty($dados)) {
             // Retorne os dados como JSON válido
@@ -131,7 +168,7 @@ class Venda
     public function cancelarVenda(string $id): string
     {
         $sql = 'UPDATE vendas SET ds_situacao = ? WHERE cd_venda = ?';
-        $params = ['Cancelada', $id];       
+        $params = ['Cancelada', $id];
         $this->bd->executarComando($sql, $params);
         return 'Venda cancelada com sucesso!';
     }
