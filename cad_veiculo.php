@@ -55,7 +55,7 @@
                                     <label for="floatingPassword">Tipo/Modelo</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="number" id="txt_placa" name="txt_placa" required
+                                    <input type="text" id="txt_placa" name="txt_placa" required
                                         class="form-control rounded-3">
                                     <label for="floatingPassword">Placa</label>
                                 </div>

@@ -7,14 +7,15 @@ namespace App\Models;
 use DomainException;
 use App\Models\BancoDeDados;
 
-class Usuario {
+class Usuario
+{
 
     private BancoDeDados $bd;
-      // Injeção de dependência para a classe BancoDeDados
-      public function __construct(BancoDeDados $bd)
-      {
-          $this->bd = $bd;
-      }
+    // Injeção de dependência para a classe BancoDeDados
+    public function __construct(BancoDeDados $bd)
+    {
+        $this->bd = $bd;
+    }
 
     public static function validarEmail(string $email): bool
     {
@@ -28,7 +29,7 @@ class Usuario {
     public static function login(string $email, string $senha): void
     {
         $bd = new BancoDeDados;
-        $sql = 'SELECT cd_usuario, ds_usuario FROM usuarios
+        $sql = 'SELECT cd_usuario, ds_usuario, ds_situacao FROM usuarios
         WHERE ds_email = ? AND ds_senha = ?';
         $params = [$email, $senha];
         $dados = $bd->selecionarRegistro($sql, $params);
@@ -39,6 +40,12 @@ class Usuario {
                         window.location.href = '../../index.php'
                     </script>";
 
+            exit();
+        } else if ($dados['ds_situacao'] == '0') {
+            echo   "<script>
+                        alert('Usuário inativo!')
+                        window.location.href = '../../index.php'
+                    </script>";
             exit();
         } else {
             session_set_cookie_params(['httponly' => true]);
@@ -57,9 +64,8 @@ class Usuario {
     {
         session_start();
         session_destroy();
-
     }
-    
+
     public function cadastrar(array $form): string
     {
         if ($form['id'] == 'NOVO') {
@@ -96,7 +102,7 @@ class Usuario {
         return $msg;
     }
 
-    public function listarUsuarios (string $id, string $tipo): mixed
+    public function listarUsuarios(string $id, string $tipo): mixed
     {
         if (!$tipo == '') {
             $sql = 'SELECT cd_usuario, ds_usuario FROM usuarios ORDER BY cd_usuario DESC';
@@ -120,28 +126,28 @@ class Usuario {
 
     public function excluirUsuario(string $id): string
     {
-            $sql = 'DELETE FROM usuarios WHERE cd_usuario = ?';
-            $params = [$id];
-            $this->bd->executarComando($sql, $params);
-            return 'Usuário excluído com sucesso!';
+        $sql = 'DELETE FROM usuarios WHERE cd_usuario = ?';
+        $params = [$id];
+        $this->bd->executarComando($sql, $params);
+        return 'Usuário excluído com sucesso!';
     }
 
-    public function validaCPF( string $cpf): bool
+    public function validaCPF(string $cpf): bool
     {
- 
+
         // Extrai somente os números
-        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-         
+        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+
         // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
             return false;
         }
-    
+
         // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
         if (preg_match('/(\d)\1{10}/', $cpf)) {
             return false;
         }
-    
+
         // Faz o calculo para validar o CPF
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -153,8 +159,5 @@ class Usuario {
             }
         }
         return true;
-    
     }
- 
 }
-
