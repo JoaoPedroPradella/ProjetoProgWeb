@@ -81,3 +81,12 @@ $("#carregarVendas").click(function () {
         listarVendas(); // só chama após o carregamento
     });
 });
+
+$("#carregarCompras").click(function () {
+    if (paginaAtual === 'compra') return; // já carregado, não faz nada
+  
+    $("#conteudo").load("cad_compra.php", function () {
+        paginaAtual = 'compra'; // marca que já carregou cliente
+        listarCompras(); // só chama após o carregamento
+    });
+});

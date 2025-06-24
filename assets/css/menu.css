@@ -189,3 +189,15 @@ table {
 #txt_total_venda {
     width: 50px;
 }
+
+#home-collapse {
+    margin-left: 25px;
+}
+
+#dashboard-collapse {
+    margin-left: 25px;
+}
+
+#orders-collapse {
+    margin-left: 25px;
+}

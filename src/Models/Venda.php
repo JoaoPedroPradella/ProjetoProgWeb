@@ -115,7 +115,7 @@ class Venda
             exit();
         }
         // VENDAS
-        $sql = 'SELECT v.cd_venda, c.ds_nome as cliente, vec.ds_tipo, v.vl_frete, vend.ds_nome as vendedor, v.cd_vendedor, v.cd_veiculo, v.cd_cliente FROM vendas v 
+        $sql = 'SELECT v.cd_venda, c.ds_nome as cliente, vec.ds_tipo, v.vl_frete, vend.ds_nome as vendedor, v.cd_vendedor, v.cd_veiculo, v.cd_cliente, vl_total FROM vendas v 
                 INNER JOIN clientes c
                 ON v.cd_cliente = c.cd_cliente
                 INNER JOIN veiculos vec
@@ -165,11 +165,25 @@ class Venda
         }
     }
 
-    public function cancelarVenda(string $id): string
+    public function cancelarVenda(string $id, array $dadosItens): string
     {
         $sql = 'UPDATE vendas SET ds_situacao = ? WHERE cd_venda = ?';
         $params = ['Cancelada', $id];
         $this->bd->executarComando($sql, $params);
+
+        if (!empty($dadosItens)){
+            foreach ($dadosItens as $item) {
+                $sql = 'UPDATE produtos SET qt_estoque = qt_estoque + ? WHERE cd_produto=?';
+
+                $params = [
+                    $item['qtd'],  // Quantidade do item
+                    $item['id'],  // Código do item
+                ];
+
+                $this->bd->executarComando($sql, $params);
+            }
+        }
+
         return 'Venda cancelada com sucesso!';
     }
 }

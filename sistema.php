@@ -72,7 +72,7 @@ session_start();
                             <li><a href="#" id="carregarVendas"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Vendas</a>
                             </li>
-                            <li><a href="#"
+                            <li><a href="#" id="carregarCompras"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">Compras</a>
                             </li>
                         </ul>
@@ -107,6 +107,7 @@ session_start();
             
         </div>
         <div id="conteudo">
+            <h1>Bem-vindo <?php echo $_SESSION['nome'] ?> </h1>
             <!-- Vai chamar o conteúdo do cadastro do cliente (Ajax) -->
         </div>
     </main>

@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport">
-    <title>VENDAS</title>
+    <title>COMPRAS</title>
     <link rel="stylesheet" href="assets\css\menu.css">
 </head>
 
 <body>
-    <main id="main_venda">
-        <h1>Vendas</h1>
+    <main id="main_compra">
+        <h1>Compras</h1>
         <table>
             <tbody id="lista">
                 <tr>
@@ -22,7 +22,7 @@
             <footer class="py-3 my-4">
                 <ul class="nav justify-content-center border-bottom pb-3 mb-3">
                     <li class="nav-item"><button class="nav-link px-2 text-body-secondary" id="btn_detalhes" name="btn_detalhes">Detalhes</button></li>
-                    <li class="nav-item"><button onclick class="nav-link px-2 text-body-secondary" id="btn_canc" name="btn_canc">Cancelar</button></li>
+                    <li class="nav-item"><button onclick class="nav-link px-2 text-body-secondary" id="btn_canc" name="btn_canc">Editar</button></li>
                 </ul>
                 <ul class="nav justify-content-center">
                     <li class="nav-item"><button id="btn_novo" id="btn_novo">NOVO</button></li>
@@ -30,7 +30,7 @@
             </footer>
         </div>
 
-        <dialog id="modal_venda">
+        <dialog id="modal_compra">
             <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
                 <div>
                     <div>
@@ -66,26 +66,13 @@
                                         <label for="floatingInput">Frete</label>
                                     </div>
                                 </div>
-                                <div class="form-floating mb-3" id="dv_vendedor">
-                                    <select name="slc_vendedor" class="form-control rounded-3" id="slc_vendedor">
+                                <div class="form-floating mb-3" id="dv_item">
+                                    <select name="slc_item" class="form-control rounded-3" id="slc_item">
                                         <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                     </select>
-                                    <label for="floatingInput">Vendedor</label>
+                                    <label for="floatingInput">Item</label>
                                 </div>
-                                <div id="prod_serv">
-                                    <div class="form-floating mb-3" id="dv_item">
-                                        <select name="slc_item" class="form-control rounded-3" id="slc_item">
-                                            <!-- Serão adicionadas dinamicamente as categorias aqui -->
-                                        </select>
-                                        <label for="floatingInput">Item</label>
-                                    </div>
-                                    <div class="form-floating mb-3">
-                                        <div>
-                                            <input type="checkbox" id="chk_tipo" name="chk_tipo">
-                                            <label for="chk_tipo">Serviço</label>
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div id="vl_qtd">
                                     <div class="form-floating mb-3" id="dv_vlu">
                                         <input type="number" id="txt_qtd" name="txt_qtd" required class="form-control rounded-3">
@@ -113,8 +100,6 @@
                                             <th>qtd</th>
                                             <th>valor</th>
                                             <th>desconto</th>
-                                            <th>tipo</th>
-                                            <th>vendedor</th>
                                             <th>total</th>
                                         </tr>
                                     </thead>
@@ -123,7 +108,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-floating mb-3" id="divTotal">
-                                     Total: <label for="total" id="total"></label>
+                                    Total: <label for="total" id="total"></label>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_pag" name="btn_pag">Pagamento</button>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="btn_concluir" name="btn_concluir">Cadastrar</button>
@@ -134,7 +119,7 @@
             </div>
         </dialog>
 
-<!-- Modal de Pagamento -->
+        <!-- Modal de Pagamento -->
         <dialog id="modal_pagamento">
             <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
                 <div>
@@ -154,9 +139,9 @@
                                     <label for="floatingInput" id="lbl_pag">Pagamento</label>
                                 </div>
                                 <div class="form-floating mb-3" id="dv_pag">
-                                        <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
-                                        <label for="floatingInput">Valor</label>
-                                    </div>
+                                    <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
+                                    <label for="floatingInput">Valor</label>
+                                </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic_pag" name="btn_adic_pag">Adicionar</button>
                                 <table>
                                     <thead>
@@ -170,7 +155,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-floating mb-3" id="divRest">
-                                     Restante: <label for="restante" id="restante"></label>
+                                    Restante: <label for="restante" id="restante"></label>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_cad_pag" name="btn_cad_pag">Concluir</button>
                             </form>
@@ -184,7 +169,7 @@
     </main>
     <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
-    <script src="assets\js\venda.js"></script>
+    <script src="assets\js\compra.js"></script>
 </body>
 
 </html>
