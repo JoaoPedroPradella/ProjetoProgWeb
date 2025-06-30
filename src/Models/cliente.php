@@ -54,11 +54,12 @@ class Cliente
         return $msg;
     }
 
-    public function listarClientes(string $id, string $tipo): mixed
+    public function listarClientes(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_cliente, ds_nome FROM clientes ORDER BY cd_cliente DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_cliente, ds_nome FROM clientes WHERE tp_tipo = ? ORDER BY cd_cliente DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }
@@ -81,35 +82,34 @@ class Cliente
         $sql = 'SELECT count(cd_cliente) AS cliente FROM vendas WHERE cd_cliente = ?';
         $params = [$id];
         $resposta = $this->bd->selecionarRegistro($sql, $params);
-        
-        if($resposta['cliente'] == 0){
+
+        if ($resposta['cliente'] == 0) {
             $sql = 'DELETE FROM clientes WHERE cd_cliente = ?';
             $params = [$id];
             $this->bd->executarComando($sql, $params);
             return 'Cliente excluido com sucesso!';
-        } else{
+        } else {
             return 'Cliente já em uso em vendas!';
             exit();
         }
-
     }
 
-    public function validaCPF( string $cpf): bool
+    public function validaCPF(string $cpf): bool
     {
- 
+
         // Extrai somente os números
-        $cpf = preg_replace( '/[^0-9]/is', '', $cpf );
-         
+        $cpf = preg_replace('/[^0-9]/is', '', $cpf);
+
         // Verifica se foi informado todos os digitos corretamente
         if (strlen($cpf) != 11) {
             return false;
         }
-    
+
         // Verifica se foi informada uma sequência de digitos repetidos. Ex: 111.111.111-11
         if (preg_match('/(\d)\1{10}/', $cpf)) {
             return false;
         }
-    
+
         // Faz o calculo para validar o CPF
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
@@ -121,43 +121,39 @@ class Cliente
             }
         }
         return true;
-    
     }
-    
+
     public function validarCNPJ(string $cnpj): bool
     {
         $cnpj = preg_replace('/[^0-9]/', '', (string) $cnpj);
-        
+
         // Valida tamanho
         if (strlen($cnpj) != 14)
             return false;
-    
+
         // Verifica se todos os digitos são iguais
         if (preg_match('/(\d)\1{13}/', $cnpj))
-            return false;	
-    
+            return false;
+
         // Valida primeiro dígito verificador
-        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++)
-        {
+        for ($i = 0, $j = 5, $soma = 0; $i < 12; $i++) {
             $soma += $cnpj[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
-    
+
         $resto = $soma % 11;
-    
+
         if ($cnpj[12] != ($resto < 2 ? 0 : 11 - $resto))
             return false;
-    
+
         // Valida segundo dígito verificador
-        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++)
-        {
+        for ($i = 0, $j = 6, $soma = 0; $i < 13; $i++) {
             $soma += $cnpj[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
-    
+
         $resto = $soma % 11;
-    
+
         return $cnpj[13] == ($resto < 2 ? 0 : 11 - $resto);
     }
-
 }

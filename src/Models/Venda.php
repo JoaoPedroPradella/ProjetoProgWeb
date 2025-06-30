@@ -106,11 +106,12 @@ class Venda
         return $msg;
     }
 
-    public function listarVendas(string $id, string $tipo): mixed
+    public function listarVendas(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_venda, dt_emissao, vl_frete, vl_total, ds_situacao,  cd_vendedor, cd_veiculo, cd_cliente FROM vendas ORDER BY cd_venda DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_venda, dt_emissao, vl_frete, vl_total, ds_situacao,  cd_vendedor, cd_veiculo, cd_cliente FROM vendas WHERE ds_situacao = ? ORDER BY cd_venda DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }

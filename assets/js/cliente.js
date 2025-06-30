@@ -1,18 +1,29 @@
 if (typeof modal === 'undefined') {
     const modal = document.getElementById('modal');
-} 
+}
+
+$('#chk_situacao').click(function () {
+    listarClientes($('#chk_situacao').prop("checked"));
+});
 
 
-function listarClientes() {
+function listarClientes(situacao) {
+    if ($('#conteudo').data('loaded') === 'cliente') return;
+
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'cliente') return;
+    if (situacao === true) {
+        situacao = '0'; // Marcado para listar apenas os inativos, passa 0 
+    } else {
+        situacao = '1'; // Desmarcado para listar apenas os inativos, passa 0
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_cliente.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -31,7 +42,7 @@ function listarClientes() {
 }
 
 
-$("#btn_novo").click(function(){
+$("#btn_novo").click(function () {
     modal.showModal();
     $('#txttitulo').html('Novo');
     $('#status').hide();
@@ -40,34 +51,30 @@ $("#btn_novo").click(function(){
     $('#txtid').val('NOVO');
 })
 
-$('#btn_editar').click(function(){
-    console.log('Editar');
+$('#btn_editar').click(function () {
     $('#txttitulo').html('Editando');
     $('#btn_concluir').show();
-}); 
+});
 
-$('#btn_detalhes').click(function(){
-    console.log('Detalhes');
+$('#btn_detalhes').click(function () {
     $('#txttitulo').html('Detalhes');
     $('#btn_concluir').hide();
-    console.log($('#chk_status').val());
-}); 
+});
 
-function alterarCadastro (){
-    modal.showModal();    
+function alterarCadastro() {
+    modal.showModal();
     $('#status').show();
     $status = $('#checkbox:checked').val();
-    console.log($status);
 
-    $.ajax ({
+    $.ajax({
         url: 'src/Application/selecionar_cliente.php',
         method: 'POST',
         data: {
             'id': $('#opt_cliente:checked').val(),
         },
         dataType: 'json'
-    }).done(function (result){
-        if (!result.erro){
+    }).done(function (result) {
+        if (!result.erro) {
             $('#txtid').val(result['cd_cliente']);
             $('#txtnome').val(result['ds_nome']);
             $('#txtcpf_cnpj').val(result['ds_cpf_cnpj']);
@@ -77,28 +84,25 @@ function alterarCadastro (){
             $('#txtmunic').val(result['ds_municipio']);
             $('#txtlog').val(result['ds_logradouro']);
 
-            console.log(result['tp_tipo'])
-
             if (result['tp_tipo'] === '0') {
-                console.log('Caiu');
                 $('#chk_status').prop("checked", false)
             } else {
                 $('#chk_status').prop("checked", true)
             }
 
-            listarClientes();
+            listarClientes($('#chk_situacao').prop("checked"));
         } else {
             console.log(result.erro);
         }
-        
+
     });
 };
 
-$('#btn_fechar').click(function(){
+$('#btn_fechar').click(function () {
     modal.close();
 })
 
-$('#form').submit(function (e){
+$('#form').submit(function (e) {
     e.preventDefault();
     $.ajax({
         url: 'src/Application/inserir_cliente.php',
@@ -115,11 +119,11 @@ $('#form').submit(function (e){
             'status': $('#chk_status').prop('checked') ? 1 : 0
         },
         dataType: 'json'
-    }).done(function (result){
+    }).done(function (result) {
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarClientes();
+            listarClientes($('#chk_situacao').prop("checked"));
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -141,26 +145,24 @@ $('#form').submit(function (e){
     })
 })*/
 
-$('#btn_exc').click(function(){
-    if(confirm('Tem certeza que deseja excluir o cadastro?')){
-        $.ajax ({
+$('#btn_exc').click(function () {
+    if (confirm('Tem certeza que deseja excluir o cadastro?')) {
+        $.ajax({
             url: 'src/Application/excluir_cliente.php',
             method: 'POST',
             data: {
                 'id': $('#opt_cliente:checked').val(),
             },
             dataType: 'json'
-        }).done(function(result){
+        }).done(function (result) {
             if (!result.erro) {
                 alert(result);
-                listarClientes();
+                listarClientes($('#chk_situacao').prop("checked"));
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
             }
         });
     }
-    
-});
 
-listarClientes();
+});

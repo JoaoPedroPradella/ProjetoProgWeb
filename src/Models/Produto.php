@@ -52,11 +52,12 @@ class produto
         return $msg;
     }
 
-    public function listarProdutos(string $id, string $tipo): mixed
+    public function listarProdutos(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_produto, ds_produto, vl_venda FROM produtos ORDER BY cd_produto DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_produto, ds_produto, vl_venda FROM produtos WHERE ds_situacao = ? ORDER BY cd_produto DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }

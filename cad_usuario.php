@@ -10,7 +10,10 @@
 
 <body>
     <main id="main_usuario">
-    <h1>Usuários</h1>
+        <h1>Usuários</h1>
+        <div>
+            <input type="checkbox" id="chk_situacao" name="chk_situacao"> Inativos
+        </div>
         <table>
             <tbody id="lista">
                 <tr>
@@ -60,7 +63,7 @@
                                     <label for="floatingPassword">E-mail</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input input type="number" id="txt_senha" name="txt_senha" required class="form-control rounded-3">
+                                    <input input type="password" id="txt_senha" name="txt_senha" required class="form-control rounded-3">
                                     <label for="floatingPassword">Senha</label>
                                 </div>
                                 <div class="form-floating mb-3">

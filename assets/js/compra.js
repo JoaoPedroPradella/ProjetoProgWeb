@@ -273,7 +273,8 @@ function selecionarCliente(callback) {
         url: 'src/Application/selecionar_cliente.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1'
         },
         dataType: 'json'
     }).done(function (result) {
@@ -299,7 +300,8 @@ function selecionarVeiculo(callback) {
         url: 'src/Application/selecionar_veiculo.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1'
         },
         dataType: 'json'
     }).done(function (result) {
@@ -351,7 +353,8 @@ function selecionarProduto(callback) {
         url: 'src/Application/selecionar_produto.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1'
         },
         dataType: 'json'
     }).done(function (result) {

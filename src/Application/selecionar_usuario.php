@@ -9,8 +9,9 @@ use App\Models\Usuario;
 
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $tipo = isset($_POST['listagem']) ? $_POST['listagem'] : '';
+$situacao = isset($_POST['situacao']) ? $_POST['situacao'] : '';
 
-if ($tipo == '') {
+if ($tipo == '' && $situacao == '') {
     if ($id == '') {
         echo json_encode(['erro' => 'ID não encontrado']);
         exit;
@@ -21,7 +22,7 @@ $bd = new BancoDeDados;
 $usuario = new Usuario($bd);
 
 try {
-    echo json_encode($usuario->listarUsuarios($id, $tipo));
+    echo json_encode($usuario->listarUsuarios($id, $tipo, $situacao));
 } catch (Exception $e) {
     echo json_encode(['erro' => $e->getMessage()]);
 };

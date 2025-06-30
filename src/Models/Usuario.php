@@ -102,11 +102,12 @@ class Usuario
         return $msg;
     }
 
-    public function listarUsuarios(string $id, string $tipo): mixed
+    public function listarUsuarios(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_usuario, ds_usuario FROM usuarios ORDER BY cd_usuario DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_usuario, ds_usuario FROM usuarios WHERE ds_situacao = ? ORDER BY cd_usuario DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }

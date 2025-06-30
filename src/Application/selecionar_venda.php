@@ -9,6 +9,7 @@ use App\Models\Venda;
 
 $id = isset($_POST['id']) ? $_POST['id'] : '';
 $tipo = isset($_POST['listagem']) ? $_POST['listagem'] : '';
+$situacao = isset($_POST['situacao']) ? $_POST['situacao'] : '';
 
 if ($tipo == '') {
     if ($id == '') {
@@ -21,7 +22,7 @@ $bd = new BancoDeDados;
 $venda = new Venda($bd);
 
 try {
-    echo json_encode($venda->listarVendas($id, $tipo));
+    echo json_encode($venda->listarVendas($id, $tipo, $situacao));
 } catch (Exception $e) {
     echo json_encode(['erro' => $e->getMessage()]);
 };

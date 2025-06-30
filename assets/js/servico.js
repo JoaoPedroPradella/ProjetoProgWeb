@@ -1,18 +1,28 @@
 if (typeof modal === 'undefined') {
     const modal = document.getElementById('modal');
-} 
+}
 
+$('#chk_situacao').click(function () {
+    listarServicos($('#chk_situacao').prop("checked"));
+});
 
-function listarServicos() {
+function listarServicos(situacao) {
+    if ($('#conteudo').data('loaded') === 'servico') return;
+
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'servico') return;
+    if (situacao === true) {
+        situacao = '0'; // Marcado para listar apenas os inativos, passa 0 
+    } else {
+        situacao = '1'; // Desmarcado para listar apenas os inativos, passa 0
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_servico.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -31,7 +41,7 @@ function listarServicos() {
 }
 
 
-$("#btn_novo").click(function(){
+$("#btn_novo").click(function () {
     modal.showModal();
     $('#txttitulo').html('Novo');
     $('#status').hide();
@@ -40,32 +50,32 @@ $("#btn_novo").click(function(){
     $('#txt_id').val('NOVO');
 })
 
-$('#btn_editar').click(function(){
+$('#btn_editar').click(function () {
     console.log('Editar');
     $('#txttitulo').html('Editando');
     $('#btn_concluir').show();
-}); 
+});
 
-$('#btn_detalhes').click(function(){
+$('#btn_detalhes').click(function () {
     console.log('Detalhes');
     $('#txttitulo').html('Detalhes');
     $('#btn_concluir').hide();
-}); 
+});
 
-function alterarCadastro (){
-    modal.showModal();    
+function alterarCadastro() {
+    modal.showModal();
     $('#status').show();
     $status = $('#checkbox:checked').val();
 
-    $.ajax ({
+    $.ajax({
         url: 'src/Application/selecionar_servico.php',
         method: 'POST',
         data: {
             'id': $('#opt_servico:checked').val(),
         },
         dataType: 'json'
-    }).done(function (result){
-        if (!result.erro){
+    }).done(function (result) {
+        if (!result.erro) {
             $('#txt_id').val(result['cd_servico']);
             $('#txt_desc').val(result['ds_servico']);
             $('#txt_tipo').val(result['tp_tipo']);
@@ -79,19 +89,19 @@ function alterarCadastro (){
                 $('#chk_status').prop("checked", true)
             }
 
-            listarServicos();
+            listarServicos($('#chk_situacao').prop("checked"));
         } else {
             console.log(result.erro);
         }
-        
+
     });
 };
 
-$('#btn_fechar').click(function(){
+$('#btn_fechar').click(function () {
     modal.close();
 })
 
-$('#form').submit(function (e){
+$('#form').submit(function (e) {
     e.preventDefault();
     $.ajax({
         url: 'src/Application/inserir_servico.php',
@@ -105,11 +115,11 @@ $('#form').submit(function (e){
             'status': $('#chk_status').prop('checked') ? 1 : 0
         },
         dataType: 'json'
-    }).done(function (result){
+    }).done(function (result) {
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarServicos();
+            listarServicos($('#chk_situacao').prop("checked"));
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -118,26 +128,25 @@ $('#form').submit(function (e){
     });
 });
 
-$('#btn_exc').click(function(){
-    if(confirm('Tem certeza que deseja excluir o cadastro?')){
-        $.ajax ({
+$('#btn_exc').click(function () {
+    if (confirm('Tem certeza que deseja excluir o cadastro?')) {
+        $.ajax({
             url: 'src/Application/excluir_servico.php',
             method: 'POST',
             data: {
                 'id': $('#opt_servico:checked').val(),
             },
             dataType: 'json'
-        }).done(function(result){
+        }).done(function (result) {
             if (!result.erro) {
                 alert(result);
-                listarServicos();
+                listarServicos($('#chk_situacao').prop("checked"));
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
             }
         });
     }
-    
+
 });
 
-listarServicos();

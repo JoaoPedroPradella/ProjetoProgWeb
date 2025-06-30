@@ -11,6 +11,9 @@
 <body>
     <main id="main_venda">
         <h1>Vendas</h1>
+        <div>
+            <input type="checkbox" id="chk_situacao" name="chk_situacao"> Canceladas
+        </div>
         <table>
             <tbody id="lista">
                 <tr>
@@ -123,7 +126,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-floating mb-3" id="divTotal">
-                                     Total: <label for="total" id="total"></label>
+                                    Total: <label for="total" id="total"></label>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_pag" name="btn_pag">Pagamento</button>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" id="btn_concluir" name="btn_concluir">Cadastrar</button>
@@ -134,7 +137,7 @@
             </div>
         </dialog>
 
-<!-- Modal de Pagamento -->
+        <!-- Modal de Pagamento -->
         <dialog id="modal_pagamento">
             <div class="modal position-static d-block" tabindex="-1" role="dialog" id="modalSignin">
                 <div>
@@ -154,9 +157,9 @@
                                     <label for="floatingInput" id="lbl_pag">Pagamento</label>
                                 </div>
                                 <div class="form-floating mb-3" id="dv_pag">
-                                        <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
-                                        <label for="floatingInput">Valor</label>
-                                    </div>
+                                    <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
+                                    <label for="floatingInput">Valor</label>
+                                </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic_pag" name="btn_adic_pag">Adicionar</button>
                                 <table>
                                     <thead>
@@ -170,7 +173,7 @@
                                     </tbody>
                                 </table>
                                 <div class="form-floating mb-3" id="divRest">
-                                     Restante: <label for="restante" id="restante"></label>
+                                    Restante: <label for="restante" id="restante"></label>
                                 </div>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" id="btn_cad_pag" name="btn_cad_pag">Concluir</button>
                             </form>

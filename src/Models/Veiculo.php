@@ -46,11 +46,12 @@ class Veiculo
         return $msg;
     }
 
-    public function listarVeiculos(string $id, string $tipo): mixed
+    public function listarVeiculos(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_veiculo, ds_tipo FROM veiculos ORDER BY cd_veiculo DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_veiculo, ds_tipo FROM veiculos WHERE ds_situacao = ? ORDER BY cd_veiculo DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }

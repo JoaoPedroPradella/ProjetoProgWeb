@@ -2,17 +2,28 @@ if (typeof modal === 'undefined') {
     const modal = document.getElementById('modal');
 }
 
+$('#chk_situacao').click(function () {
+    listarVeiculos($('#chk_situacao').prop("checked"));
+});
 
-function listarVeiculos() {
+
+function listarVeiculos(situacao) {
+    if ($('#conteudo').data('loaded') === 'veiculo') return;
+
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'veiculo') return;
+    if (situacao === true) {
+        situacao = '0'; // Marcado para listar apenas os inativos, passa 0 
+    } else {
+        situacao = '1'; // Desmarcado para listar apenas os inativos, passa 0
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_veiculo.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -62,18 +73,18 @@ function alterarCadastro() {
         },
         dataType: 'json'
     }).done(function (result) {
-        if (!result.erro) {            
-                $('#txt_id').val(result['cd_veiculo']);
-                $('#txt_tipo').val(result['ds_tipo']);
-                $('#txt_placa').val(result['ds_placa']);
-                $('#txt_cor').val(result['ds_cor']);
-               
-                if (result['ds_situacao'] === '0') {
-                    $('#chk_status').prop("checked", false)
-                } else {
-                    $('#chk_status').prop("checked", true)
-                }
-            listarVeiculos();
+        if (!result.erro) {
+            $('#txt_id').val(result['cd_veiculo']);
+            $('#txt_tipo').val(result['ds_tipo']);
+            $('#txt_placa').val(result['ds_placa']);
+            $('#txt_cor').val(result['ds_cor']);
+
+            if (result['ds_situacao'] === '0') {
+                $('#chk_status').prop("checked", false)
+            } else {
+                $('#chk_status').prop("checked", true)
+            }
+            listarVeiculos($('#chk_situacao').prop("checked"));
         } else {
             console.log(result.erro);
         }
@@ -102,7 +113,7 @@ $('#form').submit(function (e) {
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarVeiculos();
+            listarVeiculos($('#chk_situacao').prop("checked"));
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -110,19 +121,6 @@ $('#form').submit(function (e) {
         }
     });
 });
-
-/*$('#bnt_consultaCEP').click(function(){
-    $.ajax({
-        url: 'src/Application/consulta_cep.php',
-        method: 'POST',
-        data: {
-            'cep': $('#txtcep').val(),
-        },
-        dataType: 'json'
-    }).done(function(result){
-        alert(result);
-    })
-})*/
 
 $('#btn_exc').click(function () {
     if (confirm('Tem certeza que deseja excluir o cadastro?')) {
@@ -136,7 +134,7 @@ $('#btn_exc').click(function () {
         }).done(function (result) {
             if (!result.erro) {
                 alert(result);
-                listarVeiculos();
+                listarVeiculos($('#chk_situacao').prop("checked"));
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
@@ -146,4 +144,3 @@ $('#btn_exc').click(function () {
 
 });
 
-listarVeiculos();

@@ -11,6 +11,9 @@
 <body>
     <main id="main_cliente">
         <h1>Clientes</h1>
+            <div>
+                <input type="checkbox" id="chk_situacao" name="chk_situacao"> Inativos
+            </div>
         <table>
             <tbody id="lista">
                 <tr>

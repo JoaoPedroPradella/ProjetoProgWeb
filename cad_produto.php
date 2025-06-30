@@ -10,7 +10,10 @@
 
 <body>
     <main id="main_produto">
-    <h1>Produtos</h1>
+        <h1>Produtos</h1>
+        <div>
+            <input type="checkbox" id="chk_situacao" name="chk_situacao"> Inativos
+        </div>
         <table>
             <tbody id="lista">
                 <tr>
@@ -94,7 +97,7 @@
         </dialog>
 
     </main>
-      <!-- Importando jquery -->
+    <!-- Importando jquery -->
     <script src="vendor\js\jquery.js"></script>
     <script src="assets\js\produto.js"></script>
 </body>

@@ -14,16 +14,29 @@ if (typeof modal_venda === 'undefined') {
 
 var total_pago = 0;
 
-function listarVendas() {
+$('#chk_situacao').click(function () {
+    listarVendas($('#chk_situacao').prop("checked"));
+});
+
+function listarVendas(situacao) {
+    if ($('#conteudo').data('loaded') === 'venda') return;
+
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'venda') return;
+    if (situacao === true) {
+        situacao = 'Cancelada'; // Marcado para listar apenas as vendas canceladas, passa "Cancelada"
+        $('#btn_canc').hide();
+    } else {
+        situacao = 'Concluida'; // Desmarcado para listar apenas as vendas concluidas, passa "Concluida"
+        $('#btn_canc').show();
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_venda.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -75,7 +88,7 @@ $("#btn_novo").click(function () {
             url: 'src/Application/selecionar_produto.php',
             method: 'POST',
             data: {
-                'id': selec_item
+                'id': selec_item,
             },
             dataType: 'json'
         }).done(function (result) {
@@ -112,7 +125,7 @@ $('#chk_tipo').click(function () {
                 url: 'src/Application/selecionar_produto.php',
                 method: 'POST',
                 data: {
-                    'id': ult_item_selec
+                    'id': ult_item_selec,
                 },
                 dataType: 'json'
             }).done(function (result) {
@@ -135,7 +148,7 @@ $('#chk_tipo').click(function () {
                 url: 'src/Application/selecionar_servico.php',
                 method: 'POST',
                 data: {
-                    'id': selec_item
+                    'id': selec_item,
                 },
                 dataType: 'json'
             }).done(function (result) {
@@ -323,7 +336,7 @@ $('#form').submit(function (e) {
             console.log(result);
             modal_venda.close();
             alert(result);
-            listarVendas();
+            listarVendas($('#chk_situacao').prop("checked"));;
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -380,7 +393,7 @@ $('#btn_canc').click(function () {
                     tipo = '';
                     if (!result.erro) {
                         alert(result);
-                        listarVendas();
+                        listarVendas($('#chk_situacao').prop("checked"));;
                     } else {
                         alert('Existem erros! Verifique')
                         console.log(result.erro);
@@ -400,7 +413,8 @@ function selecionarCliente(callback) {
         url: 'src/Application/selecionar_cliente.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1' // Lista apenas os ativos
         },
         dataType: 'json'
     }).done(function (result) {
@@ -426,7 +440,8 @@ function selecionarVeiculo(callback) {
         url: 'src/Application/selecionar_veiculo.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1' // Lista apenas os ativos
         },
         dataType: 'json'
     }).done(function (result) {
@@ -478,7 +493,8 @@ function selecionarProduto(callback) {
         url: 'src/Application/selecionar_produto.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1' // Lista apenas os ativos
         },
         dataType: 'json'
     }).done(function (result) {
@@ -505,7 +521,8 @@ function selecionarServico(callback) {
         url: 'src/Application/selecionar_servico.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': '1' // Lista apenas os ativos
         },
         dataType: 'json'
     }).done(function (result) {
@@ -667,7 +684,7 @@ function listarPagamentos() {
         url: 'src/Application/selecionar_pagamento.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
         },
         dataType: 'json'
     }).done(function (result) {
@@ -734,4 +751,3 @@ $('#btn_cad_pag').click(function (e) {
     }
     modal_pagamento.close();
 })
-listarVendas();

@@ -1,11 +1,11 @@
-function logout () {
-    if (confirm('Realmente deseja sair?')){
+function logout() {
+    if (confirm('Realmente deseja sair?')) {
         $.ajax({
             url: 'src/Application/logout.php',
             method: 'POST',
             dataType: 'json'
-        }).done(function(result){
-            if (result.status === 'sucesso'){
+        }).done(function (result) {
+            if (result.status === 'sucesso') {
                 window.location.href = 'index.php';
             } else {
                 alert('Erro ao sair. Tente novamente.');
@@ -17,19 +17,29 @@ function logout () {
 
 if (typeof modal === 'undefined') {
     const modal = document.getElementById('modal');
-} 
+}
 
+$('#chk_situacao').click(function () {
+    listarUsuarios($('#chk_situacao').prop("checked"));
+});
 
-function listarUsuarios() {
+function listarUsuarios(situacao) {
+    if ($('#conteudo').data('loaded') === 'usuario') return;
+
     let tipo = 'listagem';
 
-    if ($('#conteudo').data('loaded') === 'usuario') return;
+    if (situacao === true) {
+        situacao = '0'; // Marcado para listar apenas os inativos, passa 0 
+    } else {
+        situacao = '1'; // Desmarcado para listar apenas os inativos, passa 0
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_usuario.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -48,7 +58,7 @@ function listarUsuarios() {
 }
 
 
-$("#btn_novo").click(function(){
+$("#btn_novo").click(function () {
     modal.showModal();
     $('#txttitulo').html('Novo');
     $('#status').hide();
@@ -57,34 +67,34 @@ $("#btn_novo").click(function(){
     $('#txt_id').val('NOVO');
 })
 
-$('#btn_editar').click(function(){
+$('#btn_editar').click(function () {
     console.log('Editar');
     $('#txttitulo').html('Editando');
     $('#btn_concluir').show();
-}); 
+});
 
-$('#btn_detalhes').click(function(){
+$('#btn_detalhes').click(function () {
     console.log('Detalhes');
     $('#txttitulo').html('Detalhes');
     $('#btn_concluir').hide();
     console.log($('#chk_status').val());
-}); 
+});
 
-function alterarCadastro (){
-    modal.showModal();    
+function alterarCadastro() {
+    modal.showModal();
     $('#status').show();
     $status = $('#checkbox:checked').val();
     console.log($status);
 
-    $.ajax ({
+    $.ajax({
         url: 'src/Application/selecionar_usuario.php',
         method: 'POST',
         data: {
             'id': $('#opt_usuario:checked').val(),
         },
         dataType: 'json'
-    }).done(function (result){
-        if (!result.erro){
+    }).done(function (result) {
+        if (!result.erro) {
             $('#txt_id').val(result['cd_usuario']);
             $('#txt_nome').val(result['ds_usuario']);
             $('#txt_email').val(result['ds_email']);
@@ -101,19 +111,19 @@ function alterarCadastro (){
                 $('#chk_status').prop("checked", true)
             }
 
-            listarUsuarios();
+            listarUsuarios($('#chk_situacao').prop("checked"));
         } else {
             console.log(result.erro);
         }
-        
+
     });
 };
 
-$('#btn_fechar').click(function(){
+$('#btn_fechar').click(function () {
     modal.close();
 })
 
-$('#form').submit(function (e){
+$('#form').submit(function (e) {
     e.preventDefault();
     $.ajax({
         url: 'src/Application/inserir_usuario.php',
@@ -130,11 +140,11 @@ $('#form').submit(function (e){
             'status': $('#chk_status').prop('checked') ? 1 : 0
         },
         dataType: 'json'
-    }).done(function (result){
+    }).done(function (result) {
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarUsuarios();
+            listarUsuarios($('#chk_situacao').prop("checked"));
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -144,26 +154,24 @@ $('#form').submit(function (e){
 });
 
 
-$('#btn_exc').click(function(){
-    if(confirm('Tem certeza que deseja excluir o cadastro?')){
-        $.ajax ({
+$('#btn_exc').click(function () {
+    if (confirm('Tem certeza que deseja excluir o cadastro?')) {
+        $.ajax({
             url: 'src/Application/excluir_usuario.php',
             method: 'POST',
             data: {
                 'id': $('#opt_usuario:checked').val(),
             },
             dataType: 'json'
-        }).done(function(result){
+        }).done(function (result) {
             if (!result.erro) {
                 alert(result);
-                listarUsuarios();
+                listarUsuarios($('#chk_situacao').prop("checked"));
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
             }
         });
     }
-    
-});
 
-listarUsuarios();
+});

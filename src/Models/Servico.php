@@ -48,11 +48,12 @@ class Servico
         return $msg;
     }
 
-    public function listarServicos(string $id, string $tipo): mixed
+    public function listarServicos(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
-            $sql = 'SELECT cd_servico, ds_servico FROM servicos ORDER BY cd_servico DESC';
-            $dados = $this->bd->selecionarRegistros($sql);
+            $sql = 'SELECT cd_servico, ds_servico FROM servicos WHERE ds_situacao = ? ORDER BY cd_servico DESC';
+            $params = [$situacao];
+            $dados = $this->bd->selecionarRegistros($sql, $params);
             return ($dados);
             exit();
         }

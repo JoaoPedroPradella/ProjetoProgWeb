@@ -2,17 +2,26 @@ if (typeof modal === 'undefined') {
     const modal = document.getElementById('modal');
 }
 
+$('#chk_situacao').click(function () {
+    listarProdutos($('#chk_situacao').prop("checked"));
+});
 
-function listarProdutos() {
-    let tipo = 'listagem';
-
+function listarProdutos(situacao) {
     if ($('#conteudo').data('loaded') === 'produto') return;
+
+    let tipo = 'listagem';
+    if (situacao === true) {
+        situacao = '0'; // Marcado para listar apenas os inativos, passa 0 
+    } else {
+        situacao = '1'; // Desmarcado para listar apenas os inativos, passa 0
+    }
 
     $.ajax({
         url: 'src/Application/selecionar_produto.php',
         method: 'POST',
         data: {
-            'listagem': tipo
+            'listagem': tipo,
+            'situacao': situacao
         },
         dataType: 'json'
     }).done(function (result) {
@@ -85,7 +94,7 @@ function alterarCadastro() {
                     $('#chk_status').prop("checked", true)
                 }
             });
-            listarProdutos();
+            listarProdutos($('#chk_situacao').prop("checked"));
         } else {
             console.log(result.erro);
         }
@@ -117,7 +126,7 @@ $('#form').submit(function (e) {
         if (!result.erro) {
             alert(result);
             modal.close();
-            listarProdutos();
+            listarProdutos($('#chk_situacao').prop("checked"));
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {
@@ -151,7 +160,7 @@ $('#btn_exc').click(function () {
         }).done(function (result) {
             if (!result.erro) {
                 alert(result);
-                listarProdutos();
+                listarProdutos($('#chk_situacao').prop("checked"));
             } else {
                 alert('Não foi possível excluir o cadastro!');
                 console.log(result.erro);
@@ -188,7 +197,3 @@ function selecionarCategoria(callback) {
         }
     });
 }
-
-
-
-listarProdutos();
