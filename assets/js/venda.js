@@ -665,6 +665,10 @@ function excluirItem(id) {
 $('#btn_pag').click(function () {
     modal_pagamento.showModal();
     listarPagamentos();
+    $('#dv_parcela').hide();
+    $('#tb_parcelas').hide();
+    $('#dv_intervalo').hide();
+
     $('#txt_vpag').val($('#total').text()) - Number(total_pago);
     if (restante.innerHTML == 0 && total_pago == 0) {
         restante.innerHTML = $('#total').text();
@@ -696,6 +700,7 @@ function listarPagamentos() {
                 $('#slc_pagamento').prepend(
                     '<option value="' + result[i].cd_pag + '">' + result[i].ds_pag + '</option>');
             }
+            tipo_pag();
         } else {
             console.log(result.erro);
         }
@@ -705,8 +710,6 @@ function listarPagamentos() {
 $('#btn_adic_pag').click(function () {
 
     let valor_pag = $('#txt_vpag').val();
-    console.log(restante.innerHTML);
-    console.log(valor_pag);
     if (Number(valor_pag) <= 0) {
         alert('O valor pago não pode ser menor ou igual a 0!');
     } else if (Number(valor_pag) > Number(restante.innerHTML)) {
@@ -751,3 +754,43 @@ $('#btn_cad_pag').click(function (e) {
     }
     modal_pagamento.close();
 })
+
+
+// -------------------------  Venda a prazo ---------------------------------
+function tipo_pag() {
+    console.log($('#slc_pagamento option:selected').text())
+    let tipo_pag = $('#slc_pagamento option:selected').text()
+    let qtd_parcelas = 1;
+
+    if (tipo_pag.indexOf("Prazo") != -1 || tipo_pag.indexOf("prazo") != -1) {
+        $('#dv_parcela').show();
+        $('#tb_parcelas').show();
+        $('#dv_intervalo').show();
+        $('#listaParcelas').empty();
+        $('#txt_parcela').val('1');
+        $('#txt_intervalo').val('1');
+
+        $('#txt_parcela, #txt_intervalo').on('input', function () {
+            $('#listaParcelas').empty();
+            qtd_parcelas = Number($('#txt_parcela').val());
+            for (var i = 1; i <= qtd_parcelas; i++) {
+                console.log('testeeee')
+                let dataAtual = new Date(); // Cria a data de hoje
+                dataAtual.setDate(dataAtual.getDate() + (Number($('#txt_intervalo').val()) * i)); // Adiciona 30 dias
+                let dataFutura = dataAtual.toISOString().split('T')[0]
+
+                $('#listaParcelas').prepend(
+                    '<tr id="parc-' + i + '" name="registroParc"><td> ' + i + '</td><td>teste</td><td><input type="date" id="txt_vencimento" name="txt_vencimento" value="' + dataFutura + '" required class="form-control rounded-3"></td><tr>');
+            }
+
+        })
+
+
+
+    } else {
+        $('#dv_parcela').hide();
+        $('#tb_parcelas').hide();
+        $('#dv_intervalo').hide();
+
+    }
+}

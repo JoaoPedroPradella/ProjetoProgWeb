@@ -62,7 +62,7 @@ class produto
             exit();
         }
         $sql = 'SELECT p.cd_produto, p.ds_produto, c.cd_categoria, c.ds_categoria, p.qt_estoque, p.vl_compra, p.vl_venda, p.ds_unidade, p.ds_situacao FROM produtos p
-        INNER JOIN categorias c 
+        LEFT JOIN categorias c 
         ON p.cd_categoria = c.cd_categoria
         WHERE cd_produto = ?';
         $params = [$id];
@@ -83,7 +83,7 @@ class produto
         $sql = 'SELECT count(cd_produto) AS produto FROM ite_vendas i 
         INNER JOIN vendas v
         ON i.cd_venda = v.cd_venda
-        WHERE cd_produto = ? AND v.ds_situacao <> "Concluida"';
+        WHERE cd_produto = ? AND v.ds_situacao = "Concluida"';
         $params = [$id];
         $resposta = $this->bd->selecionarRegistro($sql, $params);
         

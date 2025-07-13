@@ -63,11 +63,23 @@ class Categoria
     }
 
     public function excluirCategoria (string $id): string
-    {
-            $sql = 'DELETE FROM categorias WHERE cd_categoria = ?';
+    {   
+            $sql = 'SELECT COUNT(p.cd_categoria) as total FROM produtos p
+            INNER JOIN categorias c
+            ON p.cd_categoria = c.cd_categoria
+            WHERE c.cd_categoria = ?';
             $params = [$id];
-            $this->bd->executarComando($sql, $params);
-            return 'Categoria excluida com sucesso!';
+            $resposta = $this->bd->selecionarRegistro($sql, $params);
+
+            if ($resposta['total'] == 0){
+                $sql = 'DELETE FROM categorias WHERE cd_categoria = ?';
+                $params = [$id];
+                $this->bd->executarComando($sql, $params);
+                return 'Categoria excluida com sucesso!';
+            } else {
+                return 'Categoria já vinculada com um ou mais produtos!';
+            }
+
     }
 
 }

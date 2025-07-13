@@ -17,11 +17,11 @@ if (in_array('', $form)) {
 }
 
 $bd = new BancoDeDados();
-$novoCliente = new Categoria($bd);
+$novaCategoria = new Categoria($bd);
 
 
 try {
-    echo json_encode($novoCliente->cadastrar($form));
+    echo json_encode($novaCategoria->cadastrar($form));
 
 } catch (Exception $e) {
     echo json_encode (['erro_bd' => $e -> getMessage()]);

@@ -13,13 +13,14 @@ $form['und'] = isset($_POST['und']) ? $_POST['und'] : '';
 $form['custo'] = isset($_POST['custo']) ? $_POST['custo'] : '';
 $form['qtd'] = isset($_POST['qtd']) ? $_POST['qtd'] : '';
 $form['preco'] = isset($_POST['preco']) ? $_POST['preco'] : '';
-$form['categ'] = isset($_POST['categ']) ? $_POST['categ'] : '';
 $form['status'] = isset($_POST['status']) ? $_POST['status'] : '';
 
 
 if (in_array('', $form)) {
     echo json_encode(['erro' => 'Existem campos vazios. Verifique!']);
 }
+
+$form['categ'] = isset($_POST['categ']) ? $_POST['categ'] : '';
 
 if ($form['preco'] <= 0 || $form['custo'] <= 0) {
     echo json_encode(['erro' => 'O valor de venda e de custo não podem ser menor ou igual a 0!']);

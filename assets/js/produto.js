@@ -135,19 +135,6 @@ $('#form').submit(function (e) {
     });
 });
 
-/*$('#bnt_consultaCEP').click(function(){
-    $.ajax({
-        url: 'src/Application/consulta_cep.php',
-        method: 'POST',
-        data: {
-            'cep': $('#txtcep').val(),
-        },
-        dataType: 'json'
-    }).done(function(result){
-        alert(result);
-    })
-})*/
-
 $('#btn_exc').click(function () {
     if (confirm('Tem certeza que deseja excluir o cadastro?')) {
         $.ajax({
@@ -183,11 +170,15 @@ function selecionarCategoria(callback) {
         tipo = '';
         if (!result.erro) {
             $('#slc_categoria').empty();
+          
+
             for (var i = 0; i < result.length; i++) {
                 $('#slc_categoria').prepend(
                     '<option value="' + result[i].cd_categoria + '">' + result[i].ds_categoria + '</option>');
             }
-
+            
+            $('#slc_categoria').prepend(
+                '<option value="' + '' + '">' + '' + '</option>');
 
             if (typeof callback === "function") {
                 callback();

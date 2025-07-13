@@ -77,7 +77,7 @@ class Servico
         $sql = 'SELECT count(cd_servico) AS servico FROM ser_vendas s 
         INNER JOIN vendas v
         ON s.cd_venda = v.cd_venda
-        WHERE cd_servico = ? AND v.ds_situacao <> "Concluida"';
+        WHERE cd_servico = ? AND v.ds_situacao = "Concluida"';
         $params = [$id];
         $resposta = $this->bd->selecionarRegistro($sql, $params);
         

@@ -1,4 +1,5 @@
 create database InfoJP
+drop database InfoJP
 
 use InfoJP
 
@@ -206,11 +207,6 @@ add constraint FK_ITE_VENDAS_VENDAS
 foreign key (cd_venda)
 references vendas (cd_venda);
 
-alter table produtos
-add constraint FK_PRODUTOS_CATEGORIAS
-foreign key (cd_categoria)
-references categorias (cd_categoria);
-
 alter table ite_compras
 add constraint FK_ITE_COMPRAS_PRODUTOS
 foreign key (cd_produto)
@@ -278,3 +274,87 @@ references pagamentos (cd_pag);
 
 -- Inserts --
 insert into usuarios (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao ) values ('adm', '43243243', 'adm@email.com.br', '432432423', 'teste', '1', '28022003', '1');
+
+update usuarios set ds_email = 'adm@email.com.br'
+where cd_usuario = '1'
+
+SELECT MAX(cd_venda) FROM vendas
+
+select * from clientes
+select * from usuarios
+select * from categorias
+select * from produtos
+select * from ite_vendas
+select * from ser_vendas
+select * from vendas
+select * from servicos
+select * from veiculos
+select * from vendedores
+select * from pagamentos
+select * from pag_vendas
+select * from vendas
+select * from pag_vendas
+select * from compras
+select * from ite_compras
+select * from pag_compras
+
+insert into compras (dt_emissao, dt_entrada, vl_total, vl_frete, cd_cliente, cd_veiculo) values ('4343', '23432', '4343', '4343', '1', '1')
+delete from compras
+
+SET SQL_SAFE_UPDATES = 0;
+
+-- VENDAS
+SELECT v.cd_venda, c.ds_nome as cliente, vec.ds_tipo, v.vl_frete, vend.ds_nome as vendedor, v.cd_vendedor, v.cd_veiculo, v.cd_cliente FROM vendas v 
+INNER JOIN clientes c
+ON v.cd_cliente = c.cd_cliente
+INNER JOIN veiculos vec
+ON v.cd_veiculo = vec.cd_veiculo 
+INNER JOIN vendedores vend
+ON v.cd_vendedor = vend.cd_vendedor
+WHERE v.cd_venda = '1'
+
+
+-- ITEVENDAS
+SELECT i.cd_produto, i.ds_produto, i.qt_venda, i.vl_uni, i.vl_desc, vend.ds_nome, i.vl_total FROM vendas v 
+INNER JOIN ite_vendas i 
+ON v.cd_venda = i.cd_venda
+INNER JOIN vendedores vend
+ON v.cd_vendedor = vend.cd_vendedor
+WHERE v.cd_venda = '1'
+
+-- SERVENDAS
+SELECT s.cd_servico, s.ds_servico, s.vl_hora, s.qt_hora, s.vl_desc, s.vl_total FROM vendas v 
+INNER JOIN ser_vendas s
+ON v.cd_venda = s.cd_venda
+WHERE v.cd_venda = '1'
+
+-- PAGAMENTOS
+SELECT pag.ds_pag, p.vl_pagamento FROM vendas v 
+INNER JOIN pag_vendas p
+ON v.cd_venda = p.cd_venda
+INNER JOIN pagamentos pag
+ON p.cd_pagamento = pag.cd_pag 
+WHERE v.cd_venda = '1'
+
+delete from ser_vendas
+delete from ite_vendas
+delete from pag_vendas
+delete from vendas
+
+insert into usuarios (ds_usuario, ds_cpf, ds_email, ds_celular, ds_endereco, ds_senha, ds_nascimento, ds_situacao ) values ('adm', '43243243', 'adm@email.com.br', '432432423', 'teste', '1', '28022003', '1');
+insert into veiculos (ds_placa, ds_tipo, ds_cor, ds_situacao) values ('32432', 'bmw', 'azul', '1');
+insert into vendedores (cd_vendedor, ds_nome) values ('1', 'pedro');
+insert into pagamentos (cd_pag, ds_pag) values ('1', 'DinDin');
+insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_teste', '234', '100', 'informatica', '1');
+insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_tesouro', '234', '100', 'informatica', '1');
+insert into servicos (ds_servico, vl_hora, vl_minimo, tp_tipo, ds_situacao) values ('servico_top', '234', '300', 'informatica', '1');
+insert into categorias (ds_categoria) values ('teste');
+insert into categorias (ds_categoria) values ('at');
+insert into categorias (ds_categoria) values ('bds');
+insert into categorias (ds_categoria) values ('uyt');
+insert into categorias (ds_categoria) values ('trr');
+insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('teste','1', '23','23','34','und','1');
+insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('Prod','1', '23','23','34','und','1');
+insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('Prod','1', '23','23','60','und','1');
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
+insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1');

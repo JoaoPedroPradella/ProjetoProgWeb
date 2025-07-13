@@ -151,15 +151,35 @@
                         <div class="modal-body p-5 pt-0">
                             <form class="" id="form">
                                 <div class="form-floating mb-3" id="dv_pagamento">
-                                    <select name="slc_pagamento" class="form-control rounded-3" id="slc_pagamento">
+                                    <select name="slc_pagamento" class="form-control rounded-3" id="slc_pagamento" onchange="tipo_pag()">
                                         <!-- Serão adicionadas dinamicamente as categorias aqui -->
                                     </select>
                                     <label for="floatingInput" id="lbl_pag">Pagamento</label>
+                                </div>
+                                <div class="form-floating mb-3" id="dv_parcela"> 
+                                    <input type="number" id="txt_parcela" name="txt_parcela" class="form-control rounded-3">
+                                    <label for="floatingInput">N° Parcelas</label>
+                                </div>
+                                <div class="form-floating mb-3" id="dv_intervalo"> 
+                                    <input type="number" id="txt_intervalo" name="txt_intervalo" class="form-control rounded-3">
+                                    <label for="floatingInput">Intervalo</label>
                                 </div>
                                 <div class="form-floating mb-3" id="dv_pag">
                                     <input type="number" id="txt_vpag" name="txt_vpag" required class="form-control rounded-3">
                                     <label for="floatingInput">Valor</label>
                                 </div>
+                                <table id="tb_parcelas">
+                                    <thead>
+                                        <tr>
+                                            <th>Número</th>
+                                            <th>Valor</th>
+                                            <th>Vencimento</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="listaParcelas">
+                                        <!-- Lista os itens dinâmicamente -->
+                                    </tbody>
+                                </table>
                                 <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="btn_adic_pag" name="btn_adic_pag">Adicionar</button>
                                 <table>
                                     <thead>

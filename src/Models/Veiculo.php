@@ -73,7 +73,7 @@ class Veiculo
     public function excluirVeiculo(string $id): string
     {
         $sql = 'SELECT count(cd_veiculo) AS veiculo FROM vendas
-        WHERE cd_veiculo = ? AND ds_situacao <> "Concluida"';
+        WHERE cd_veiculo = ? AND ds_situacao = "Concluida"';
         $params = [$id];
         $resposta = $this->bd->selecionarRegistro($sql, $params);
         

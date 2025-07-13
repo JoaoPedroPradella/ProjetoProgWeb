@@ -119,7 +119,7 @@ $('#form').submit(function (e) {
 $('#btn_exc').click(function () {
     if (confirm('Tem certeza que deseja excluir o cadastro?')) {
         $.ajax({
-            url: 'src/Application/excluir_cliente.php',
+            url: 'src/Application/excluir_categoria.php',
             method: 'POST',
             data: {
                 'id': $('#opt_categoria:checked').val(),
