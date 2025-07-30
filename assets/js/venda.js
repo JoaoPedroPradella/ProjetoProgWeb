@@ -83,7 +83,6 @@ $("#btn_novo").click(function () {
     });
     selecionarProduto(function () {
         selec_item = $('#slc_item').val();
-        console.log($('#slc_item').text());
         $.ajax({
             url: 'src/Application/selecionar_produto.php',
             method: 'POST',
@@ -170,7 +169,6 @@ $('#btn_detalhes').click(function () {
     modal_venda.showModal();
     $('#listaItens').empty();
     $('#listaPagamentos').empty();
-    console.log('Detalhes');
     $('#txt_titulo').html('Detalhes');
     $('#btn_adic').hide();
     $('#btn_concluir').hide();
@@ -194,8 +192,6 @@ $('#btn_detalhes').click(function () {
     }).done(function (result) {
         if (!result.erro) {
             const venda = result[0]; // Objeto com informações gerais
-            console.log(venda.cd_cliente);
-            console.log(venda.ds_nome);
             selecionarCliente(function () {
                 selecionarVeiculo(function () {
                     selecionarVendedor(function () {
@@ -226,7 +222,6 @@ $('#btn_detalhes').click(function () {
                 $('#listaPagamentos').prepend(
                     '<tr> <td>' + pagamento.ds_pag + '</td><td>' + pagamento.vl_pagamento + '</td></tr>');
             });
-            console.log(result);
 
         } else {
             console.log(result.erro); // Mostra o erro retornado pelo PHP
@@ -246,7 +241,6 @@ $('#btn_fechar_pag').click(function () {
 
 $('#form').submit(function (e) {
     e.preventDefault();
-    console.log(restante.innerHTML);
     if (!Number(restante.innerHTML) == 0 || restante.innerHTML === '') {
         alert('Informe o pagamento completo!');
         return;
@@ -374,7 +368,6 @@ $('#btn_canc').click(function () {
                 });
 
                 if (itens.length === 0 && servicos.length === 0) {
-                    console.log('sem itens')
                     alert('Não é possível cancelar uma venda sem itens!');
                     return;
                 }
@@ -739,9 +732,7 @@ function excluirPag(id) {
         // Seleciona os < td > específicos da linha atual
         let pag = linha.querySelector('#vl_pag').textContent;
         Novototal += Number(pag);
-        console.log(Novototal);
     }
-    console.log(Novototal);
     restante.innerHTML = $('#total').text() - Novototal;
     total_pago = Novototal;
 }
@@ -758,9 +749,7 @@ $('#btn_cad_pag').click(function (e) {
 
 // -------------------------  Venda a prazo ---------------------------------
 function tipo_pag() {
-    console.log($('#slc_pagamento option:selected').text())
     let tipo_pag = $('#slc_pagamento option:selected').text()
-    let qtd_parcelas = 1;
 
     if (tipo_pag.indexOf("Prazo") != -1 || tipo_pag.indexOf("prazo") != -1) {
         $('#dv_parcela').show();
@@ -769,24 +758,12 @@ function tipo_pag() {
         $('#listaParcelas').empty();
         $('#txt_parcela').val('1');
         $('#txt_intervalo').val('1');
+        lista_parcelas(Number($('#txt_parcela').val()), Number($('#txt_intervalo').val()));
 
-        $('#txt_parcela, #txt_intervalo').on('input', function () {
+        $('#txt_parcela, #txt_intervalo, #txt_vpag').on('input', function () {
             $('#listaParcelas').empty();
-            qtd_parcelas = Number($('#txt_parcela').val());
-            for (var i = 1; i <= qtd_parcelas; i++) {
-                console.log('testeeee')
-                let dataAtual = new Date(); // Cria a data de hoje
-                dataAtual.setDate(dataAtual.getDate() + (Number($('#txt_intervalo').val()) * i)); // Adiciona 30 dias
-                let dataFutura = dataAtual.toISOString().split('T')[0]
-
-                $('#listaParcelas').prepend(
-                    '<tr id="parc-' + i + '" name="registroParc"><td> ' + i + '</td><td>teste</td><td><input type="date" id="txt_vencimento" name="txt_vencimento" value="' + dataFutura + '" required class="form-control rounded-3"></td><tr>');
-            }
-
+            lista_parcelas(Number($('#txt_parcela').val()), Number($('#txt_intervalo').val()));
         })
-
-
-
     } else {
         $('#dv_parcela').hide();
         $('#tb_parcelas').hide();
@@ -794,3 +771,81 @@ function tipo_pag() {
 
     }
 }
+
+function lista_parcelas(qtd_parcelas, intervalo) {
+    let dataAtual;
+    let dataFutura;
+    let valor;
+
+    valor = $('#txt_vpag').val() / qtd_parcelas
+
+    for (var i = 1; i <= qtd_parcelas; i++) {
+        dataAtual = new Date(); // Cria a data de hoje
+        dataAtual.setDate(dataAtual.getDate() + intervalo * i); // Adiciona 30 dias
+        dataFutura = dataAtual.toISOString().split('T')[0]
+
+        $('#listaParcelas').prepend(
+            '<tr id="parc-' + i + '" name="registroParc"><td> ' + i + '</td><td><input type="number" id="txt_val_parc" name="txt_val_parc" class="txt_val_parc" value="' + valor.toFixed(2).replace('.', ',') + '" required class="form-control rounded-3"></input></td><td><input type="date" id="txt_vencimento" name="txt_vencimento" value="' + dataFutura + '" required class="form-control rounded-3"></td><tr>');
+    }
+
+    $('.txt_val_parc').on('input', function () {
+        let lista = document.getElementsByName('registroParc'); 
+        let totalPag = parseFloat($('#txt_vpag').val().replace(',', '.'));
+        let numeros = []; // parcelas alteradas
+        let somaAtual = 0;
+    
+        // Detecta parcelas alteradas
+        for (let i = 0; i < lista.length; i++) {
+            let input = lista[i].querySelector('.txt_val_parc');
+            if (input) {
+                let valorOriginal = totalPag / lista.length;
+                let valorInput = parseFloat(input.value.replace(',', '.')) || 0;
+    
+                // Considera alterado se valor for diferente do original (com margem)
+                if (Math.abs(valorInput - valorOriginal) > 0.01) {
+                    numeros.push({ numero: i, valor: valorInput });
+                }
+    
+                somaAtual += valorInput;
+            }
+        }
+    
+        if (numeros.length < lista.length) {
+            // Ainda há parcelas não alteradas → recalcula elas
+            let totalAlterado = numeros.reduce((soma, item) => soma + item.valor, 0);
+            let restante = totalPag - totalAlterado;
+            let faltam = lista.length - numeros.length;
+            let novoValor = (restante / faltam).toFixed(2);
+    
+            for (let i = 0; i < lista.length; i++) {
+                if (!numeros.some(obj => obj.numero === i)) {
+                    let input = lista[i].querySelector('.txt_val_parc');
+                    if (input) {
+                        input.value = novoValor.replace('.', ',');
+                    }
+                }
+            }
+    
+        } else {
+            // Todas foram alteradas → verifica se soma bate
+            let diferenca = totalPag - somaAtual;
+    
+            if (Math.abs(diferenca) > 0.01) {
+                // Ajusta apenas a primeira parcela
+                let primeira = lista[0].querySelector('.txt_val_parc');
+                if (primeira) {
+                    let atual = parseFloat(primeira.value.replace(',', '.')) || 0;
+                    let novo = atual + diferenca;
+    
+                    if (novo <= 0) novo = 0.01;
+    
+                    primeira.value = novo.toFixed(2).replace('.', ',');
+                }
+            }
+        }
+    });
+    
+}
+
+
+
