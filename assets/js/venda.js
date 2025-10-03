@@ -776,6 +776,7 @@ function lista_parcelas(qtd_parcelas, intervalo) {
     let dataAtual;
     let dataFutura;
     let valor;
+    let j = [];
 
     valor = $('#txt_vpag').val() / qtd_parcelas
 
@@ -789,60 +790,57 @@ function lista_parcelas(qtd_parcelas, intervalo) {
     }
 
     $('.txt_val_parc').on('input', function () {
-        let lista = document.getElementsByName('registroParc'); 
-        let totalPag = parseFloat($('#txt_vpag').val().replace(',', '.'));
-        let numeros = []; // parcelas alteradas
-        let somaAtual = 0;
-    
-        // Detecta parcelas alteradas
-        for (let i = 0; i < lista.length; i++) {
-            let input = lista[i].querySelector('.txt_val_parc');
-            if (input) {
-                let valorOriginal = totalPag / lista.length;
-                let valorInput = parseFloat(input.value.replace(',', '.')) || 0;
-    
-                // Considera alterado se valor for diferente do original (com margem)
-                if (Math.abs(valorInput - valorOriginal) > 0.01) {
-                    numeros.push({ numero: i, valor: valorInput });
+        let registros_alterados = [];
+        let lista = document.getElementsByName('registroParc');
+        
+        // console.log(lista)
+
+        for (i = 0; i < lista.length; i++) {
+            let linha = lista[i];
+            let valor_linha = linha.querySelector('#txt_val_parc').value;
+            console.log(linha)
+            console.log(valor_linha)
+
+            console.log(valor)
+            if (valor_linha != valor.toFixed(2)) {
+                console.log(j)
+                if (j.some(obj => obj.i === i)) {
+                    i++
+                    console.log('feajifnsdafnsd');
+                    continue;
                 }
-    
-                somaAtual += valorInput;
-            }
-        }
-    
-        if (numeros.length < lista.length) {
-            // Ainda há parcelas não alteradas → recalcula elas
-            let totalAlterado = numeros.reduce((soma, item) => soma + item.valor, 0);
-            let restante = totalPag - totalAlterado;
-            let faltam = lista.length - numeros.length;
-            let novoValor = (restante / faltam).toFixed(2);
-    
-            for (let i = 0; i < lista.length; i++) {
-                if (!numeros.some(obj => obj.numero === i)) {
-                    let input = lista[i].querySelector('.txt_val_parc');
-                    if (input) {
-                        input.value = novoValor.replace('.', ',');
+                registros_alterados.push({
+                    linha: linha.textContent,
+                    valor: valor_linha
+                });
+                j.push ({
+                    i: i
+                })
+                
+                let total_linhas = registros_alterados.reduce((soma, item) => soma + parseFloat(item.valor), 0);
+
+                novo_valor = ($('#txt_vpag').val() - total_linhas) / (qtd_parcelas - registros_alterados.length)
+
+                for (i = 0; i < lista.length; i++) {
+                    let linha = lista[i];
+
+                    if (!registros_alterados.some(obj => obj.linha === linha.textContent)) {
+                        let input = linha.querySelector('.txt_val_parc');
+                        if (input) {
+                            input.value = novo_valor.toFixed(2).replace('.', ',');
+                            valor = novo_valor;
+
+                        }
                     }
                 }
-            }
-    
-        } else {
-            // Todas foram alteradas → verifica se soma bate
-            let diferenca = totalPag - somaAtual;
-    
-            if (Math.abs(diferenca) > 0.01) {
-                // Ajusta apenas a primeira parcela
-                let primeira = lista[0].querySelector('.txt_val_parc');
-                if (primeira) {
-                    let atual = parseFloat(primeira.value.replace(',', '.')) || 0;
-                    let novo = atual + diferenca;
-    
-                    if (novo <= 0) novo = 0.01;
-    
-                    primeira.value = novo.toFixed(2).replace('.', ',');
-                }
-            }
+            } 
+
+
+
         }
+
+        console.log(registros_alterados)
+
     });
     
 }

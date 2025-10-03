@@ -15,11 +15,11 @@
   
   form {
     width: 600px;
-    height: 350px;
+    height: 380px;
     mix-blend-mode: multiply;
     background-color: white;
     border: solid rgba(0, 0, 0, 0.075);
-    padding: 30px;
+    padding: 50px;
     border-radius: 20px;
   
   }
@@ -150,4 +150,8 @@
   
   .bd-mode-toggle .dropdown-menu .active .bi {
     display: block !important;
+  }
+
+  #btn_cadastrar {
+    margin-top: 5px;
   }

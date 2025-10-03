@@ -1,0 +1,47 @@
+<?php
+declare(strict_types=1);
+use App\Models\Usuario;
+
+session_set_cookie_params(['httponly' => true]);
+session_start();
+
+
+if (!isset($_SESSION['id'], $_SESSION['token'])) {
+    // usuário não está logado, redireciona para login
+    header('Location: ../cadastros/login_api.php');
+    exit;
+}
+
+require_once __DIR__ . '/../../../vendor/autoload.php';
+
+use App\Models\BancoDeDados;
+
+$bd = new BancoDeDados();
+// $cone = mysqli_connect("localhost", "root", "","sistema"); 
+// mysqli_set_charset($cone, "utf8");
+
+// $sql = "select * from usuarios where cd_usuario = " . $_REQUEST["cdu"] . " and ds_senha = '" . $_REQUEST["pwd"] . "'";
+// $RSS = $bd->selecionarRegistro($sql);
+// if (!isset($RSS["cd_usuario"])) {
+//     echo "Usuario / Senha ERRADO";
+//     exit();
+// }
+
+$linhas = array();
+$rs = $bd->selecionarRegistros("select * from vendas");
+
+foreach ($rs as $row) {
+    $linhas[] = [
+        'cd_venda' => $row['cd_venda'],
+        'dt_emissao' => $row['dt_emissao'],
+        'vl_frete' => $row['vl_frete'],
+        'vl_total' => $row['vl_total'],
+        'ds_situacao' => $row['ds_situacao'],
+        'cd_vendedor' => $row['cd_vendedor'],
+        'cd_veiculo' => $row['cd_veiculo'],
+        'cd_cliente' => $row['cd_cliente']
+    ];
+}
+
+$json_string = json_encode($linhas);
+echo $json_string;

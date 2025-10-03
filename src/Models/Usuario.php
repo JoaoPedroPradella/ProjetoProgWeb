@@ -60,6 +60,40 @@ class Usuario
         }
     }
 
+    public static function login_api(string $email, string $token): void
+    {
+        $bd = new BancoDeDados;
+        $sql = 'SELECT cd_usuario, ds_usuario, ds_situacao, token FROM usuarios_api
+        WHERE ds_email = ? AND token = ?';
+        $params = [$email, $token];
+        $dados = $bd->selecionarRegistro($sql, $params);
+
+        if ($dados['cd_usuario'] == null) {
+            echo   "<script>
+                        alert('E-mail ou token inválidos!')
+                        window.location.href = '../cadastros/login_api.php'
+                    </script>";
+
+            exit();
+        } else if ($dados['ds_situacao'] == '0') {
+            echo   "<script>
+                        alert('Usuário inativo!')
+                        window.location.href = '../cadastros/login_api.php'
+                    </script>";
+            exit();
+        } else {
+            session_set_cookie_params(['httponly' => true]);
+            session_start();
+            session_regenerate_id(true);
+
+            $_SESSION['id'] = $dados['cd_usuario'];
+            $_SESSION['token'] = $dados['token'];
+            
+            header('LOCATION: ../menu.php');
+            exit();
+        }
+    }
+
     public static function deslogar(): void
     {
         session_start();
@@ -102,6 +136,31 @@ class Usuario
         return $msg;
     }
 
+    public function cadastrar_api(array $form): mixed
+    {
+        $data_atual = date("d/m/Y");
+        $numberOfBytes = 32;
+        $randomBytes = random_bytes($numberOfBytes);
+        $token = bin2hex($randomBytes);
+
+        if ($form['id'] == 'NOVO') {
+            $sql = 'INSERT INTO usuarios_api (ds_usuario, ds_email, ds_senha, token, data_cadastro, ds_situacao) VALUES
+            (?, ?, ?, ?, ?, ?)';
+            $params = [
+                $form['nome'],
+                $form['email'],
+                $form['senha'],
+                $token,
+                $data_atual,
+                '1'
+            ];
+        } 
+     
+        $this->bd->executarComando($sql, $params);
+        return ["token" => $token];
+    }
+
+        
     public function listarUsuarios(string $id, string $tipo, string $situacao): mixed
     {
         if (!$tipo == '') {
