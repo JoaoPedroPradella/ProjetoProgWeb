@@ -7,7 +7,6 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 use App\Models\BancoDeDados;
 use App\Models\Usuario;
 
-$form['id'] = isset($_POST['id']) ? $_POST['id'] : '';
 $form['nome'] = isset($_POST['nome']) ? $_POST['nome'] : '';
 $form['email'] = isset($_POST['email']) ? $_POST['email'] : '';
 $form['senha'] = isset($_POST['senha']) ? $_POST['senha'] : '';
@@ -16,9 +15,13 @@ $form['status'] = isset($_POST['status']) ? $_POST['status'] : '';
 
 if (in_array('', $form)) {
     echo json_encode(['erro' => 'Existem campos vazios. Verifique!']);
+    exit;
+} else if (strlen($form['senha']) <= 1) {
+    echo json_encode(['erro' => 'A senha deve ter mais que 1 caractere. Verifique!']);
+    exit;
 }
 
-$bd = new BancoDeDados();
+$bd = new BancoDeDados('infojp');
 $novoUsuario = new Usuario($bd);
 
 try {

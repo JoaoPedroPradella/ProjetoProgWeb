@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: rgba(172, 172, 172, 0.459);
+    background-image: url('imagens/7030038.jpg');
+    background-size: 100px, 200px;
+    background-repeat: repeat-y;
+
+}
+
+main {
+    background-color: white;
+    width: 50%;
+    margin: auto;
+    border-radius: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: inset 0 .5em .5em #0000001a, inset 0 .125em .1em #00000026;
+}
+
+header {
+    background-color: rgb(0, 84, 180);
+    color: black;
+    margin: auto;
+    width: 80%;
+    border-radius: 20px;
+    padding: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+header > h1 {
+    color: white;
+}
+header > h2 {
+    color: white;
+}
+h1, h2, h3 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 80%;
+    margin-bottom: 30px;
+    margin: auto;
+    background-color: rgba(95, 158, 160, 0.329);
+    box-shadow: inset 0 .5em 1.5em #0000001a, inset 0 .125em .5em #00000026;
+    border-color: rgb(0, 0, 0);
+    border-radius: 20px;
+    border-collapse: separate; 
+    border-spacing: 0;
+    overflow: hidden;
+}
+
+table th {
+    background-color: #f8f9fa; /* Fundo cinza claro para o cabeçalho */
+    color: #282a2c; /* Texto escuro no cabeçalho */
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+table tr:hover {
+    background-color: #f0f8ff; /* Efeito de hover suave (azul claríssimo) */
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+
+th {
+    background-color: #f0f0f0;
+}
+
+
+/* ul, p {
+    margin-bottom: 20px;
+    text-align: center;
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+} */
+
+button {
+    display: flex;
+    justify-content: center;     /* Centraliza horizontalmente */
+    margin: auto;
+    width: 20%;
+    height: 40px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: inset 0 .5em 1.5em #0000001a, inset 0 .125em .5em #00000026;
+    background-color: rgba(6, 29, 238, 0.747);
+    font-size: medium;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, 'Times New Roman', Times, serif;
+
+}

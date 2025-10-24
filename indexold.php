@@ -10,19 +10,18 @@
 </head>
 
 <body>
-    <form method="POST" action="src\Api\cadastros\dados_login.php">
+    <form method="POST" action="src\Application\login.php">
     <h1 class="h3 mb-3 fw-normal">LOGIN</h1>
     <div class="form-floating">
       <input type="email" class="form-control" name="txt_email" id="txt_email" placeholder="name@example.com" required>
       <label for="floatingInput" class="lbl" >Email</label>
     </div>
     <div class="form-floating">
-      <input type="password" class="form-control" name="txt_token" id="txt_token" placeholder="Password" required>
-      <label for="floatingPassword" class="lbl">Token</label>
+      <input type="password" class="form-control" name="txt_senha" id="txt_senha" placeholder="Password" required>
+      <label for="floatingPassword" class="lbl">Senha</label>
     </div>
     <button class="btn btn-primary w-100 py-2" type="submit">Entrar</button>
-     <a href="src\Api\cadastros\cad_usuario_api.php" class="btn btn-primary w-100 py-2" id="btn_cadastrar"> Cadastrar</a>
   </form>
 </body>
-</html>
 
+</html>

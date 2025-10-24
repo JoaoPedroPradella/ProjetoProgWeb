@@ -5,7 +5,6 @@ $('#form').submit(function (e){
         url: 'inserir_usuario_api.php',
         method: 'POST',
         data: {
-            'id': $('#txt_id').val(),
             'nome': $('#txt_nome').val(),
             'email': $('#txt_email').val(),
             'senha': $('#txt_senha').val(),
@@ -14,9 +13,11 @@ $('#form').submit(function (e){
         dataType: 'json'
     }).done(function (result){
         if (!result.erro) {
-            alert("Usuário cadastrado com sucesso!");
-            alert(result.token);
-            window.location.href = 'login_api.php';
+            alert(result.msg);
+            if (result.token !== undefined && result.token !== null && result.token !== ''){
+                alert('Copie: ' + result.token);
+                window.location.href = '../../../index.php'
+            }
         } else if (!result.erro_bd) {
             alert(result.erro);
         } else {

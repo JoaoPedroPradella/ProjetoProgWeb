@@ -62,7 +62,7 @@ class Usuario
 
     public static function login_api(string $email, string $token): void
     {
-        $bd = new BancoDeDados;
+        $bd = new BancoDeDados('infojp');
         $sql = 'SELECT cd_usuario, ds_usuario, ds_situacao, token FROM usuarios_api
         WHERE ds_email = ? AND token = ?';
         $params = [$email, $token];
@@ -142,22 +142,43 @@ class Usuario
         $numberOfBytes = 32;
         $randomBytes = random_bytes($numberOfBytes);
         $token = bin2hex($randomBytes);
-
-        if ($form['id'] == 'NOVO') {
+        $sql = 'SELECT * FROM usuarios_api WHERE ds_email = ? AND ds_senha = ?';
+        $params = [
+            $form['email'],
+            $form['senha']
+        ];
+        $dados = $this->bd->selecionarRegistro($sql, $params);
+        
+        if (!empty($dados) && isset($dados['cd_usuario'])) {          
+                $sql = 'UPDATE usuarios_api SET ds_usuario = ?, ds_email = ?, ds_senha = ?, token = ?, data_alteracao = CURRENT_TIMESTAMP, ds_situacao = ? WHERE cd_usuario = ?';
+                $params = [
+                    $form['nome'],
+                    $form['email'],
+                    $form['senha'],
+                    $token,
+                    '1', 
+                    $dados['cd_usuario']
+                ];
+                $msg = 'Usuário alterado com sucesso';
+        } 
+        else {
             $sql = 'INSERT INTO usuarios_api (ds_usuario, ds_email, ds_senha, token, data_cadastro, ds_situacao) VALUES
-            (?, ?, ?, ?, ?, ?)';
+            (?, ?, ?, ?, CURRENT_TIMESTAMP, ?)';
             $params = [
                 $form['nome'],
                 $form['email'],
                 $form['senha'],
                 $token,
-                $data_atual,
                 '1'
             ];
+            $msg = 'Usuário cadatrado com sucesso';
         } 
      
         $this->bd->executarComando($sql, $params);
-        return ["token" => $token];
+        return [
+            "token" => $token,
+            "msg" => $msg
+        ];
     }
 
         

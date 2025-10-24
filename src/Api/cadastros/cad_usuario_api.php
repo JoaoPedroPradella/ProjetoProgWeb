@@ -12,12 +12,6 @@
     <main id="main_usuario">
         <h1>Usuários</h1>
         <form class="" id="form">
-            <label for="floatingInput">Codigo</label>
-            <div class="form-floating mb-3">
-                <input type="text" id="txt_id" name="txt_id" value="NOVO"
-                    style="background-color: rgba(128, 128, 128, 0.103); font: bolder;" readonly
-                    class="form-control rounded-3">
-            </div>
             <label for="floatingPassword">Nome</label>
             <div class="form-floating mb-3">
                 <input type="text" id="txt_nome" name="txt_nome" required class="form-control rounded-3">

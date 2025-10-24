@@ -15,14 +15,15 @@ class BancoDeDados {
     private $conexao;
     private $host = 'localhost';
     private $porta = '3306';
-    private $db_nome = 'infojp';
     private $usuario = 'root';
     private $senha = '';
 
     // Métodos
-    public function __construct() {
+    public function __construct(
+        public string $nome
+        ) {
         try {
-            $str_connection = "mysql:host=$this->host;port=$this->porta;dbname=$this->db_nome";
+            $str_connection = "mysql:host=$this->host;port=$this->porta;dbname=$nome";
             $this->conexao = new PDO($str_connection, $this->usuario, $this->senha);
         } catch (PDOException $erro) {
             throw new Exception($erro->getMessage());
