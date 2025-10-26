@@ -26,6 +26,7 @@ create table usuarios_api (
 );
 
 select * from usuarios_api
+delete from usuarios_api
 
 create table produtos (
 	cd_produto int not null auto_increment primary key,
@@ -371,3 +372,62 @@ insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda
 insert into produtos (ds_produto, cd_categoria, qt_estoque , vl_compra, vl_venda, ds_unidade, ds_situacao) values ('Prod','1', '23','23','60','und','1');
 insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel , ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Joao','87987898', '4324323','488849','SC','teste','teste','1');
 insert into clientes (ds_nome, ds_cpf_cnpj, ds_tel, ds_cep, ds_uf, ds_municipio, ds_logradouro, tp_tipo) values ('Teste','87987898', '4324323','488849','SC','teste','teste','1');
+
+
+create database pedro_api
+use pedro_api
+
+create table clientes (
+	cd_cliente int primary key,
+    nm_cliente varchar(80),
+    ds_telefone varchar(20),
+    ds_endereco varchar (255),
+    ds_cpf_cnpj varchar (18),
+    ds_bairro varchar (80),
+    ds_cidade varchar (10),
+    ds_uf varchar (2),
+    nr_cep varchar (9),
+    ds_status varchar (20)
+);
+
+CREATE TABLE produtos (
+  cd_produto  INT PRIMARY KEY,
+  vl_quantidade INT,
+  ds_produto  VARCHAR(50),
+  ds_categoria VARCHAR(50),
+  qt_estoque  VARCHAR(50),
+  vl_compra   FLOAT,
+  vl_venda    FLOAT,
+  ds_unidade  VARCHAR(50),
+  ds_situacao VARCHAR(50),
+  ds_cor      VARCHAR(50)
+);
+
+CREATE TABLE vendas (
+  cd_venda   INT PRIMARY KEY,
+  cd_cliente INT,
+  dt_venda   DATE,
+  ds_status  VARCHAR(50),
+  vl_venda   FLOAT,
+  cd_usuario INT
+);
+
+CREATE TABLE usuarios (
+  cd_usuario  INT PRIMARY KEY,
+  ds_usuario  VARCHAR(60),
+  ds_cpf      VARCHAR(11),
+  ds_email    VARCHAR(20),
+  ds_celular  VARCHAR(20),
+  ds_endereco VARCHAR(50),
+  ds_uf       VARCHAR(2),
+  ds_cidade   VARCHAR(50),
+  ds_situacao VARCHAR(50)
+);
+
+CREATE TABLE veiculos (
+  cd_veiculo INT PRIMARY KEY,
+  ds_tipo    VARCHAR(50),
+  ds_placa   VARCHAR(50),
+  ds_cor     VARCHAR(50),
+  ds_situacao VARCHAR(50)
+);

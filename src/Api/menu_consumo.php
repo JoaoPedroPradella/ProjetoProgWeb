@@ -23,8 +23,9 @@ if (!isset($_SESSION['id'], $_SESSION['token'])) {
 <body>
     <h1>Consumir APIs</h1>
     <button id="btn_pedro">Pedro API</button>
+    <button id="btn_arthur">Arthur API</button>
 </body>
 </html>
 
 <script src="../../vendor/js/jquery.js"></script>
-<script src="entrada/pedro_api/pedro_api.js"></script>
+<script src="entrada/links.js"></script>

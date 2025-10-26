@@ -35,15 +35,12 @@ if ($token == '' || $token == 'null' || empty($token)) {
 <body>
     <h1>Entidades Pedro API</h1>
     <div>
-        <button id="cliente" data-nome="<?= $nome?>" data-token="<?= $token?>">Clientes</button>
-        <button id="produto" data-nome="<?= $nome?>" data-token="<?= $token?>">Produtos</button>
-        <button id="venda" data-nome="<?= $nome?>" data-token="<?= $token?>">Vendas</button>
-        <button id="usuario" data-nome="<?= $nome?>" data-token="<?= $token?>">Usuarios</button>
-        <button id="veiculo" data-nome="<?= $nome?>" data-token="<?= $token?>">Usuarios</button>
+        <a href="cad_clientes.php?nome=<?= $nome?>&token=<?= $token?>"><button>Clientes</button></a>
+        <a href="cad_produtos.php?nome=<?= $nome?>&token=<?= $token?>"><button>Produtos</button></a>
+        <a href="cad_vendas.php?nome=<?= $nome?>&token=<?= $token?>"><button>Vendas</button></a>
+        <a href="cad_veiculos.php?nome=<?= $nome?>&token=<?= $token?>"><button>Veículos</button></a>
+        <a href="cad_usuarios.php?nome=<?= $nome?>&token=<?= $token?>"><button>Usuarios</button></a>
     </div>
 </body>
 
 </html>
-
-<script src="../../../../vendor/js/jquery.js"></script>
-<script src="pedro_api.js"></script>

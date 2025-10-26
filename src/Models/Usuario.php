@@ -28,7 +28,7 @@ class Usuario
 
     public static function login(string $email, string $senha): void
     {
-        $bd = new BancoDeDados;
+        $bd = new BancoDeDados('infojp');
         $sql = 'SELECT cd_usuario, ds_usuario, ds_situacao FROM usuarios
         WHERE ds_email = ? AND ds_senha = ?';
         $params = [$email, $senha];
